@@ -144,10 +144,6 @@ class DatabaseCommand extends ContainerAwareCommand
      */
     protected function loadFixturesStep(InputInterface $input, OutputInterface $output)
     {
-        if ($input->getOption('env') === 'behat') {
-            $input->setOption('fixtures', self::LOAD_BASE);
-        }
-
         $output->writeln(
             sprintf(
                 '<info>Load jobs for fixtures. (data set: %s)</info>',

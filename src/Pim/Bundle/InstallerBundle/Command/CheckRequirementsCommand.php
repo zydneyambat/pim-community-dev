@@ -49,9 +49,7 @@ class CheckRequirementsCommand extends ContainerAwareCommand
         }
 
         $directories = [];
-        if ($this->getContainer()->getParameter('kernel.environment') !== 'behat') {
-            $directories = $this->getDirectoriesContainer()->getDirectories();
-        }
+        $directories = $this->getDirectoriesContainer()->getDirectories();
 
         return new \PimRequirements($directories);
     }
