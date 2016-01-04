@@ -110,10 +110,23 @@ class NavigationContext extends PimContext implements PageObjectAwareInterface
      */
     public function iAmLoggedInAs($username)
     {
-        $this->username = $username;
-        $this->password = $username;
-
         $this->getMainContext()->getSubcontext('fixtures')->setUsername($username);
+
+        $this->getSession()->setCookie('BAPID', null);
+        $this->getSession()->visit($this->locatePath('/user/login'));
+
+        $this->spin(function () {
+            return $this->getSession()->getPage()->find('css', 'div.title-box');
+        });
+
+        $this->getSession()->getPage()->fillField('_username', $username);
+        $this->getSession()->getPage()->fillField('_password', $username);
+
+        $this->getSession()->getPage()->pressButton('Log in');
+
+        $this->spin(function () {
+            return $this->getSession()->getPage()->find('css', 'div.version-container');
+        });
     }
 
     /**
@@ -316,21 +329,7 @@ class NavigationContext extends PimContext implements PageObjectAwareInterface
     {
         $this->currentPage = $page;
 
-        /** @var Base $page */
-        $page = $this->getCurrentPage()->open($options);
-
-        // spin function to deal with invalid CSRF problems
-        $this->getMainContext()->spin(function () use ($page, $options) {
-            if ($this->loginIfRequired()) {
-                $page = $this->getCurrentPage()->open($options);
-                $this->wait();
-            }
-
-            return $page->verifyAfterLogin();
-        }, 'Trying to open page ' . $this->currentPage);
-        $this->wait();
-
-        return $page;
+        return $this->getCurrentPage()->open($options);
     }
 
     /**
