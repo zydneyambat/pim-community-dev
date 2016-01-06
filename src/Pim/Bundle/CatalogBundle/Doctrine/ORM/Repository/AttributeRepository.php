@@ -467,4 +467,30 @@ class AttributeRepository extends EntityRepository implements
 
         return $count;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findBySearch($search = null, array $options = [])
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->leftJoin('a.translations', 'at');
+
+        if (null !== $search && '' !== $search) {
+            $qb->where('a.code like :search')->setParameter('search', '%' . $search . '%');
+            $qb->orWhere('at.label like :search')->setParameter('search', '%' . $search . '%');
+            if (isset($options['localeCode'])) {
+                $qb->andWhere('at.locale = :locale')->setParameter('locale', $options['localeCode']);
+            }
+        }
+
+        if (isset($options['limit'])) {
+            $qb->setMaxResults((int) $options['limit']);
+            if (isset($options['page'])) {
+                $qb->setFirstResult((int) $options['limit'] * ((int) $options['page'] - 1));
+            }
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

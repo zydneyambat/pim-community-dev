@@ -11,6 +11,10 @@ services:
         class: %pim_datagrid.controller.datagrid.class%
         arguments:
             - '@templating'
+            - '@oro_datagrid.configuration.provider.chain'
+            - '@pim_datagrid.datagrid.configuration.product.context_configurator'
+            - '@pim_datagrid.datagrid.configuration.product.filters_configurator'
+            - '@pim_catalog.repository.attribute'
 
     pim_datagrid.controller.export:
         abstract: false

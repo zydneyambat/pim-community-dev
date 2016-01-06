@@ -3,6 +3,7 @@
 namespace Pim\Component\Catalog\Repository;
 
 use Akeneo\Component\StorageUtils\Repository\IdentifiableObjectRepositoryInterface;
+use Akeneo\Component\StorageUtils\Repository\SearchableRepositoryInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Pim\Bundle\EnrichBundle\Form\DataTransformer\ChoicesProviderInterface;
 use Pim\Component\Catalog\Model\AttributeGroupInterface;
@@ -18,7 +19,8 @@ use Pim\Component\Catalog\Model\AttributeInterface;
 interface AttributeRepositoryInterface extends
     ChoicesProviderInterface,
     IdentifiableObjectRepositoryInterface,
-    ObjectRepository
+    ObjectRepository,
+    SearchableRepositoryInterface
 {
     /**
      * Find attributes with related attribute groups
