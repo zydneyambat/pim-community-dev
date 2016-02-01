@@ -338,7 +338,7 @@ class ProductStandardConverter implements StandardArrayConverterInterface
     protected function validateRequiredFields(array $item, array $requiredFields)
     {
         foreach ($requiredFields as $requiredField) {
-            if (!in_array($requiredField, array_keys($item))) {
+            if (!isset($item[$requiredField])) {
                 throw new ArrayConversionException(
                     sprintf(
                         'Field "%s" is expected, provided fields are "%s"',
@@ -362,10 +362,11 @@ class ProductStandardConverter implements StandardArrayConverterInterface
             $this->attrColumnsResolver->resolveAttributeColumns(),
             $this->getOptionalAssociationFields()
         );
+        $optionalFields = array_flip($optionalFields);
 
         $unknownFields = [];
         foreach (array_keys($item) as $field) {
-            if (!in_array($field, $optionalFields)) {
+            if (!isset($optionalFields[$field])) {
                 $unknownFields[] = $field;
             }
         }
@@ -386,13 +387,15 @@ class ProductStandardConverter implements StandardArrayConverterInterface
     {
         $stringFields = ['family', 'categories', 'groups'];
         $booleanFields = ['enabled'];
+        $stringFields = array_flip($stringFields);
+        $booleanFields = array_flip($booleanFields);
 
         foreach ($item as $field => $value) {
-            if (in_array($field, $stringFields) && !is_string($value)) {
+            if (isset($stringFields[$field]) && !is_string($value)) {
                 throw new ArrayConversionException(
                     sprintf('The field "%s" should contain a string, "%s" provided', $field, $value)
                 );
-            } elseif (in_array($field, $booleanFields) && !is_bool($value)) {
+            } elseif (isset($booleanFields[$field]) && !is_bool($value)) {
                 throw new ArrayConversionException(
                     sprintf('The field "%s" should contain a boolean, "%s" provided', $field, $value)
                 );
