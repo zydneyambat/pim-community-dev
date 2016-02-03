@@ -68,6 +68,7 @@ class ProductAssociationStandardConverter implements StandardArrayConverterInter
      */
     public function convert(array $item, array $options = [])
     {
+        //TODO: identifier + associations only
         $convertedItem = $this->productConverter->convert($item, $options);
         $filteredItem  = $this->filter($convertedItem);
 

@@ -92,6 +92,12 @@ class ProductProcessor extends AbstractProcessor
      */
     public function process($item)
     {
+        foreach ($item as $key => $value) {
+            if ('' === $value) {
+                unset($item[$key]);
+            }
+        }
+
         $convertedItem = $this->convertItemData($item);
         $identifier    = $this->getIdentifier($convertedItem);
 
@@ -119,13 +125,13 @@ class ProductProcessor extends AbstractProcessor
             $this->detachProduct($product);
             $this->skipItemWithMessage($item, $exception->getMessage(), $exception);
         }
-
+/*
         $violations = $this->validateProduct($product);
         if ($violations->count() > 0) {
             $this->detachProduct($product);
             $this->skipItemWithConstraintViolations($item, $violations);
         }
-
+*/
         return $product;
     }
 

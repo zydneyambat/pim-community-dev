@@ -197,6 +197,7 @@ class ProductUpdater implements ObjectUpdaterInterface, ProductUpdaterInterface
     protected function updateProductValues(ProductInterface $product, $attributeCode, array $values)
     {
         $family = $product->getFamily();
+        // TODO: hydrate codes and not objects!
         $authorizedCodes = (null !== $family) ? $this->getAttributeCodesFromFamily($family) : [];
         $isFamilyAttribute = in_array($attributeCode, $authorizedCodes);
 

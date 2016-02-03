@@ -72,6 +72,8 @@ class ProductAssociationProcessor extends AbstractProcessor
      */
     public function process($item)
     {
+        return null;
+
         $identifier = $this->getIdentifier($item);
 
         if (null === $identifier) {
