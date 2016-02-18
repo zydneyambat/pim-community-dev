@@ -1,0 +1,7 @@
+group_types:
+    VARIANT:
+        code: VARIANT
+        variant: 1
+    RELATED:
+        code: RELATED
+        variant: 0

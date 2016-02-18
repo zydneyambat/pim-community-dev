@@ -1,0 +1,89 @@
+users:
+    admin:
+        username: admin
+        firstname: Ben
+        lastname: 'The CTO'
+        roles:
+            - ROLE_ADMINISTRATOR
+        groups:
+            - admin
+            - manager
+            - user
+        code: admin
+        password: admin
+        email: admin@domain.com
+        catalog_locale: en_US
+        catalog_scope: ecommerce
+        default_tree: master
+        enable: true
+        default_asset_tree: asset_main_catalog
+    lionel:
+        username: lionel
+        firstname: Lionel
+        lastname: 'The Purchase Officer'
+        roles:
+            - ROLE_USER
+        groups:
+            - purchasing
+            - user
+        code: lionel
+        password: lionel
+        email: lionel@domain.com
+        catalog_locale: en_US
+        catalog_scope: ecommerce
+        default_tree: master
+        enable: true
+        default_asset_tree: asset_main_catalog
+    marylin:
+        username: marylin
+        firstname: Marylin
+        lastname: 'The Marketing Writer'
+        roles:
+            - ROLE_USER
+        groups:
+            - marketing
+            - user
+        code: marylin
+        password: marylin
+        email: marylin@domain.com
+        catalog_locale: en_US
+        catalog_scope: ecommerce
+        default_tree: master
+        enable: true
+        default_asset_tree: asset_main_catalog
+    julia:
+        username: julia
+        firstname: Julia
+        lastname: 'The Marketing Manager'
+        roles:
+            - ROLE_MANAGER
+        groups:
+            - marketing
+            - manager
+            - user
+        code: julia
+        password: julia
+        email: julia@domain.com
+        catalog_locale: en_US
+        catalog_scope: ecommerce
+        default_tree: master
+        enable: true
+        default_asset_tree: asset_main_catalog
+    mike:
+        username: mike
+        firstname: Mike
+        lastname: 'The Ecommerce Manager'
+        roles:
+            - ROLE_MANAGER
+        groups:
+            - ecommerce
+            - manager
+            - user
+        code: mike
+        password: mike
+        email: mike@domain.com
+        catalog_locale: en_US
+        catalog_scope: ecommerce
+        default_tree: master
+        enable: true
+        default_asset_tree: asset_main_catalog

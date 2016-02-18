@@ -1,0 +1,19 @@
+locale_accesses:
+    en_US:
+        code: en_US
+        viewProducts:
+            - all
+        editProducts:
+            - all
+    fr_FR:
+        code: fr_FR
+        viewProducts:
+            - all
+        editProducts:
+            - all
+    de_DE:
+        code: de_DE
+        viewProducts:
+            - all
+        editProducts:
+            - all

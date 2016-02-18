@@ -1,0 +1,408 @@
+attribute_groups:
+    general:
+        code: general
+        sort_order: 0
+        labels:
+            en_US: General
+            fr_FR: General
+            de_DE: General
+    technical_details_0:
+        label-en_US: 'Technical details'
+        code: technical_details_0
+        sort_order: 1
+    weight_dimensions_14:
+        label-en_US: 'Weight & dimensions'
+        code: weight_dimensions_14
+        sort_order: 2
+    packaging_data_67:
+        label-en_US: 'Packaging data'
+        code: packaging_data_67
+        sort_order: 3
+    license_6:
+        label-en_US: License
+        code: license_6
+        sort_order: 4
+    system_requirements_8:
+        label-en_US: 'System requirements'
+        code: system_requirements_8
+        sort_order: 5
+    other_features_146:
+        label-en_US: 'Other features'
+        code: other_features_146
+        sort_order: 6
+    features_185:
+        label-en_US: Features
+        code: features_185
+        sort_order: 7
+    language_101:
+        label-en_US: Language
+        code: language_101
+        sort_order: 8
+    power_27:
+        label-en_US: Power
+        code: power_27
+        sort_order: 9
+    operational_conditions_28:
+        label-en_US: 'Operational conditions'
+        code: operational_conditions_28
+        sort_order: 10
+    packaging_content_116:
+        label-en_US: 'Packaging content'
+        code: packaging_content_116
+        sort_order: 11
+    colour_36:
+        label-en_US: Colour
+        code: colour_36
+        sort_order: 12
+    material_119:
+        label-en_US: Material
+        code: material_119
+        sort_order: 13
+    display_5:
+        label-en_US: Display
+        code: display_5
+        sort_order: 14
+    ports_interfaces_12:
+        label-en_US: 'Ports & interfaces'
+        code: ports_interfaces_12
+        sort_order: 15
+    design_148:
+        label-en_US: Design
+        code: design_148
+        sort_order: 16
+    performance_184:
+        label-en_US: Performance
+        code: performance_184
+        sort_order: 17
+    processor_1:
+        label-en_US: Processor
+        code: processor_1
+        sort_order: 18
+    hard_drive_2:
+        label-en_US: 'Hard drive'
+        code: hard_drive_2
+        sort_order: 19
+    memory_3:
+        label-en_US: Memory
+        code: memory_3
+        sort_order: 20
+    audio_9:
+        label-en_US: Audio
+        code: audio_9
+        sort_order: 21
+    media_formats_19:
+        label-en_US: 'Media formats'
+        code: media_formats_19
+        sort_order: 22
+    copying_25:
+        label-en_US: Copying
+        code: copying_25
+        sort_order: 23
+    keyboard_31:
+        label-en_US: Keyboard
+        code: keyboard_31
+        sort_order: 24
+    networking_35:
+        label-en_US: Networking
+        code: networking_35
+        sort_order: 25
+    phone_features_42:
+        label-en_US: 'Phone features'
+        code: phone_features_42
+        sort_order: 26
+    video_45:
+        label-en_US: Video
+        code: video_45
+        sort_order: 27
+    messaging_50:
+        label-en_US: Messaging
+        code: messaging_50
+        sort_order: 28
+    navigation_54:
+        label-en_US: Navigation
+        code: navigation_54
+        sort_order: 29
+    gps_performance_55:
+        label-en_US: 'GPS Performance'
+        code: gps_performance_55
+        sort_order: 30
+    gps_type_56:
+        label-en_US: 'GPS type'
+        code: gps_type_56
+        sort_order: 31
+    data_transmission_62:
+        label-en_US: 'Data transmission'
+        code: data_transmission_62
+        sort_order: 32
+    security_75:
+        label-en_US: Security
+        code: security_75
+        sort_order: 33
+    certificates_76:
+        label-en_US: Certificates
+        code: certificates_76
+        sort_order: 34
+    software_90:
+        label-en_US: Software
+        code: software_90
+        sort_order: 35
+    wireless_lan_features_91:
+        label-en_US: 'Wireless LAN features'
+        code: wireless_lan_features_91
+        sort_order: 36
+    management_features_93:
+        label-en_US: 'Management features'
+        code: management_features_93
+        sort_order: 37
+    camera_95:
+        label-en_US: Camera
+        code: camera_95
+        sort_order: 38
+    ergonomics_96:
+        label-en_US: Ergonomics
+        code: ergonomics_96
+        sort_order: 39
+    media_types_103:
+        label-en_US: 'Media types'
+        code: media_types_103
+        sort_order: 40
+    call_management_118:
+        label-en_US: 'Call management'
+        code: call_management_118
+        sort_order: 41
+    battery_143:
+        label-en_US: Battery
+        code: battery_143
+        sort_order: 42
+    thin_client_100:
+        label-en_US: 'Thin Client'
+        code: thin_client_100
+        sort_order: 43
+    multimedia_186:
+        label-en_US: Multimedia
+        code: multimedia_186
+        sort_order: 44
+    inner_carton_114:
+        label-en_US: 'Inner carton'
+        code: inner_carton_114
+        sort_order: 45
+    outer_carton_115:
+        label-en_US: 'Outer carton'
+        code: outer_carton_115
+        sort_order: 46
+    storage_47:
+        label-en_US: Storage
+        code: storage_47
+        sort_order: 47
+    modem_46:
+        label-en_US: Modem
+        code: modem_46
+        sort_order: 48
+    lens_system_13:
+        label-en_US: 'Lens system'
+        code: lens_system_13
+        sort_order: 49
+    light_exposure_21:
+        label-en_US: 'Light exposure'
+        code: light_exposure_21
+        sort_order: 50
+    picture_quality_22:
+        label-en_US: 'Picture quality'
+        code: picture_quality_22
+        sort_order: 51
+    focusing_85:
+        label-en_US: Focusing
+        code: focusing_85
+        sort_order: 52
+    flash_86:
+        label-en_US: Flash
+        code: flash_86
+        sort_order: 53
+    viewfinder_94:
+        label-en_US: Viewfinder
+        code: viewfinder_94
+        sort_order: 54
+    shutter_145:
+        label-en_US: Shutter
+        code: shutter_145
+        sort_order: 55
+    input_device_49:
+        label-en_US: 'Input device'
+        code: input_device_49
+        sort_order: 56
+    printing_15:
+        label-en_US: Printing
+        code: printing_15
+        sort_order: 57
+    print_quality_16:
+        label-en_US: 'Print quality'
+        code: print_quality_16
+        sort_order: 58
+    print_technology_20:
+        label-en_US: 'Print technology'
+        code: print_technology_20
+        sort_order: 59
+    endurance_32:
+        label-en_US: Endurance
+        code: endurance_32
+        sort_order: 60
+    sound_emission_38:
+        label-en_US: 'Sound emission'
+        code: sound_emission_38
+        sort_order: 61
+    paper_handling_40:
+        label-en_US: 'Paper handling'
+        code: paper_handling_40
+        sort_order: 62
+    fax_26:
+        label-en_US: Fax
+        code: fax_26
+        sort_order: 63
+    protocols_34:
+        label-en_US: Protocols
+        code: protocols_34
+        sort_order: 64
+    indication_79:
+        label-en_US: Indication
+        code: indication_79
+        sort_order: 65
+    optical_fiber_137:
+        label-en_US: 'Optical fiber'
+        code: optical_fiber_137
+        sort_order: 66
+    power_over_ethernet_poe_174:
+        label-en_US: 'Power over Ethernet (PoE)'
+        code: power_over_ethernet_poe_174
+        sort_order: 67
+    internal_i_o_59:
+        label-en_US: 'Internal I/O'
+        code: internal_i_o_59
+        sort_order: 68
+    back_panel_i_o_ports_60:
+        label-en_US: 'Back panel I/O ports'
+        code: back_panel_i_o_ports_60
+        sort_order: 69
+    expansion_slots_124:
+        label-en_US: 'Expansion slots'
+        code: expansion_slots_124
+        sort_order: 70
+    bios_127:
+        label-en_US: BIOS
+        code: bios_127
+        sort_order: 71
+    graphics_163:
+        label-en_US: Graphics
+        code: graphics_163
+        sort_order: 72
+    processor_special_features_183:
+        label-en_US: 'Processor special features'
+        code: processor_special_features_183
+        sort_order: 73
+    output_capacity_17:
+        label-en_US: 'Output capacity'
+        code: output_capacity_17
+        sort_order: 74
+    input_capacity_18:
+        label-en_US: 'Input capacity'
+        code: input_capacity_18
+        sort_order: 75
+    scanning_24:
+        label-en_US: Scanning
+        code: scanning_24
+        sort_order: 76
+    consumables_39:
+        label-en_US: Consumables
+        code: consumables_39
+        sort_order: 77
+    media_weight_104:
+        label-en_US: 'Media weight'
+        code: media_weight_104
+        sort_order: 78
+    bandwidth_23:
+        label-en_US: Bandwidth
+        code: bandwidth_23
+        sort_order: 79
+    display_resolution_37:
+        label-en_US: 'Display resolution'
+        code: display_resolution_37
+        sort_order: 80
+    architecture_support_87:
+        label-en_US: 'Architecture support'
+        code: architecture_support_87
+        sort_order: 81
+    antenna_125:
+        label-en_US: Antenna
+        code: antenna_125
+        sort_order: 82
+    answering_machine_113:
+        label-en_US: 'Answering machine'
+        code: answering_machine_113
+        sort_order: 83
+    handset_128:
+        label-en_US: Handset
+        code: handset_128
+        sort_order: 84
+    access_time_33:
+        label-en_US: 'Access time'
+        code: access_time_33
+        sort_order: 85
+    record_modes_48:
+        label-en_US: 'Record modes'
+        code: record_modes_48
+        sort_order: 86
+    reading_speed_88:
+        label-en_US: 'Reading speed'
+        code: reading_speed_88
+        sort_order: 87
+    writing_speed_89:
+        label-en_US: 'Writing speed'
+        code: writing_speed_89
+        sort_order: 88
+    file_formats_141:
+        label-en_US: 'File formats'
+        code: file_formats_141
+        sort_order: 89
+    loudspeakers_53:
+        label-en_US: Loudspeakers
+        code: loudspeakers_53
+        sort_order: 90
+    amplifier_134:
+        label-en_US: Amplifier
+        code: amplifier_134
+        sort_order: 91
+    receiver_150:
+        label-en_US: Receiver
+        code: receiver_150
+        sort_order: 92
+    mouse_156:
+        label-en_US: Mouse
+        code: mouse_156
+        sort_order: 93
+    dsl_features_92:
+        label-en_US: 'DSL features'
+        code: dsl_features_92
+        sort_order: 94
+    ethernet_lan_features_112:
+        label-en_US: 'Ethernet LAN features'
+        code: ethernet_lan_features_112
+        sort_order: 95
+    mobile_networking_175:
+        label-en_US: 'Mobile networking'
+        code: mobile_networking_175
+        sort_order: 96
+    projector_44:
+        label-en_US: Projector
+        code: projector_44
+        sort_order: 97
+    lamps_65:
+        label-en_US: Lamps
+        code: lamps_65
+        sort_order: 98
+    storage_controllers_61:
+        label-en_US: 'Storage controllers'
+        code: storage_controllers_61
+        sort_order: 99
+    i_o_configuration_190:
+        label-en_US: 'I/O configuration'
+        code: i_o_configuration_190
+        sort_order: 100

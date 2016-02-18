@@ -1,0 +1,607 @@
+attribute_groups_accesses:
+    general:
+        code: general
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    technical_details_0:
+        code: technical_details_0
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    weight_dimensions_14:
+        code: weight_dimensions_14
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    packaging_data_67:
+        code: packaging_data_67
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    license_6:
+        code: license_6
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    system_requirements_8:
+        code: system_requirements_8
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    other_features_146:
+        code: other_features_146
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    features_185:
+        code: features_185
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    language_101:
+        code: language_101
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    power_27:
+        code: power_27
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    operational_conditions_28:
+        code: operational_conditions_28
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    packaging_content_116:
+        code: packaging_content_116
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    colour_36:
+        code: colour_36
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    material_119:
+        code: material_119
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    display_5:
+        code: display_5
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    ports_interfaces_12:
+        code: ports_interfaces_12
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    design_148:
+        code: design_148
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    performance_184:
+        code: performance_184
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    processor_1:
+        code: processor_1
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    hard_drive_2:
+        code: hard_drive_2
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    memory_3:
+        code: memory_3
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    audio_9:
+        code: audio_9
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    media_formats_19:
+        code: media_formats_19
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    copying_25:
+        code: copying_25
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    keyboard_31:
+        code: keyboard_31
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    networking_35:
+        code: networking_35
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    phone_features_42:
+        code: phone_features_42
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    video_45:
+        code: video_45
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    messaging_50:
+        code: messaging_50
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    navigation_54:
+        code: navigation_54
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    gps_performance_55:
+        code: gps_performance_55
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    gps_type_56:
+        code: gps_type_56
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    data_transmission_62:
+        code: data_transmission_62
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    security_75:
+        code: security_75
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    certificates_76:
+        code: certificates_76
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    software_90:
+        code: software_90
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    wireless_lan_features_91:
+        code: wireless_lan_features_91
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    management_features_93:
+        code: management_features_93
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    camera_95:
+        code: camera_95
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    ergonomics_96:
+        code: ergonomics_96
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    media_types_103:
+        code: media_types_103
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    call_management_118:
+        code: call_management_118
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    battery_143:
+        code: battery_143
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    thin_client_100:
+        code: thin_client_100
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    multimedia_186:
+        code: multimedia_186
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    inner_carton_114:
+        code: inner_carton_114
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    outer_carton_115:
+        code: outer_carton_115
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    storage_47:
+        code: storage_47
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    modem_46:
+        code: modem_46
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    lens_system_13:
+        code: lens_system_13
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    light_exposure_21:
+        code: light_exposure_21
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    picture_quality_22:
+        code: picture_quality_22
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    focusing_85:
+        code: focusing_85
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    flash_86:
+        code: flash_86
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    viewfinder_94:
+        code: viewfinder_94
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    shutter_145:
+        code: shutter_145
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    input_device_49:
+        code: input_device_49
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    printing_15:
+        code: printing_15
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    print_quality_16:
+        code: print_quality_16
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    print_technology_20:
+        code: print_technology_20
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    endurance_32:
+        code: endurance_32
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    sound_emission_38:
+        code: sound_emission_38
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    paper_handling_40:
+        code: paper_handling_40
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    fax_26:
+        code: fax_26
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    protocols_34:
+        code: protocols_34
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    indication_79:
+        code: indication_79
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    optical_fiber_137:
+        code: optical_fiber_137
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    power_over_ethernet_poe_174:
+        code: power_over_ethernet_poe_174
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    internal_i_o_59:
+        code: internal_i_o_59
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    back_panel_i_o_ports_60:
+        code: back_panel_i_o_ports_60
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    expansion_slots_124:
+        code: expansion_slots_124
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    bios_127:
+        code: bios_127
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    graphics_163:
+        code: graphics_163
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    processor_special_features_183:
+        code: processor_special_features_183
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    output_capacity_17:
+        code: output_capacity_17
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    input_capacity_18:
+        code: input_capacity_18
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    scanning_24:
+        code: scanning_24
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    consumables_39:
+        code: consumables_39
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    media_weight_104:
+        code: media_weight_104
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    bandwidth_23:
+        code: bandwidth_23
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    display_resolution_37:
+        code: display_resolution_37
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    architecture_support_87:
+        code: architecture_support_87
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    antenna_125:
+        code: antenna_125
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    answering_machine_113:
+        code: answering_machine_113
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    handset_128:
+        code: handset_128
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    access_time_33:
+        code: access_time_33
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    record_modes_48:
+        code: record_modes_48
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    reading_speed_88:
+        code: reading_speed_88
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    writing_speed_89:
+        code: writing_speed_89
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    file_formats_141:
+        code: file_formats_141
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    loudspeakers_53:
+        code: loudspeakers_53
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    amplifier_134:
+        code: amplifier_134
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    receiver_150:
+        code: receiver_150
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    mouse_156:
+        code: mouse_156
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    dsl_features_92:
+        code: dsl_features_92
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    ethernet_lan_features_112:
+        code: ethernet_lan_features_112
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    mobile_networking_175:
+        code: mobile_networking_175
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    projector_44:
+        code: projector_44
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    lamps_65:
+        code: lamps_65
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    storage_controllers_61:
+        code: storage_controllers_61
+        viewAttributes:
+            - All
+        editAttributes:
+            - All
+    i_o_configuration_190:
+        code: i_o_configuration_190
+        viewAttributes:
+            - All
+        editAttributes:
+            - All

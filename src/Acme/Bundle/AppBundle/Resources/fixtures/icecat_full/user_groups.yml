@@ -1,0 +1,28 @@
+user_groups:
+    purchasing:
+        name: Purchasing
+        code: purchasing
+    marketing:
+        name: Marketing
+        code: marketing
+    ecommerce:
+        name: Ecommerce
+        code: ecommerce
+    manager:
+        name: Manager
+        code: manager
+    print:
+        name: Print
+        code: print
+    vendor:
+        name: Vendor
+        code: vendor
+    user:
+        name: User
+        code: user
+    admin:
+        name: Admin
+        code: admin
+    all:
+        name: All
+        code: all

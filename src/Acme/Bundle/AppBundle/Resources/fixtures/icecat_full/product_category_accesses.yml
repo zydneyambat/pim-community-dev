@@ -1,0 +1,14 @@
+product_category_accesses:
+    master:
+        code: master
+        viewItems:
+            - User
+            - Manager
+            - Admin
+        editItems:
+            - User
+            - Manager
+            - Admin
+        ownItems:
+            - Manager
+            - Admin

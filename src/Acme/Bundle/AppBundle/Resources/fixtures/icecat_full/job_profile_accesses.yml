@@ -1,0 +1,249 @@
+job_profile_accesses:
+    csv_product_proposal_import:
+        executeJobProfile:
+            - Admin
+            - User
+            - Vendor
+        editJobProfile:
+            - Admin
+        code: csv_product_proposal_import
+    update_product_value:
+        executeJobProfile:
+            - User
+        code: update_product_value
+        editJobProfile:
+            - Admin
+    add_product_value:
+        executeJobProfile:
+            - User
+        code: add_product_value
+        editJobProfile:
+            - Admin
+    add_product_value_with_permission:
+        executeJobProfile:
+            - User
+        code: add_product_value_with_permission
+        editJobProfile:
+            - Admin
+    update_product_value_with_permission:
+        executeJobProfile:
+            - User
+        code: update_product_value_with_permission
+        editJobProfile:
+            - Admin
+    publish_product:
+        executeJobProfile:
+            - User
+        code: publish_product
+        editJobProfile:
+            - Admin
+    unpublish_product:
+        executeJobProfile:
+            - User
+        code: unpublish_product
+        editJobProfile:
+            - Admin
+    edit_common_attributes:
+        executeJobProfile:
+            - User
+        code: edit_common_attributes
+        editJobProfile:
+            - Admin
+    edit_common_attributes_with_permission:
+        executeJobProfile:
+            - User
+        code: edit_common_attributes_with_permission
+        editJobProfile:
+            - Admin
+    add_to_variant_group:
+        executeJobProfile:
+            - User
+        code: add_to_variant_group
+        editJobProfile:
+            - Admin
+    set_attribute_requirements:
+        executeJobProfile:
+            - User
+        code: set_attribute_requirements
+        editJobProfile:
+            - Admin
+    csv_product_quick_export:
+        executeJobProfile:
+            - User
+        code: csv_product_quick_export
+        editJobProfile:
+            - Admin
+    csv_published_product_quick_export:
+        executeJobProfile:
+            - User
+        code: csv_published_product_quick_export
+        editJobProfile:
+            - Admin
+    approve_product_draft:
+        executeJobProfile:
+            - User
+        code: approve_product_draft
+        editJobProfile:
+            - Admin
+    refuse_product_draft:
+        executeJobProfile:
+            - User
+        code: refuse_product_draft
+        editJobProfile:
+            - Admin
+    csv_product_import:
+        code: csv_product_import
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_product_export:
+        code: csv_product_export
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_category_import:
+        code: csv_category_import
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_category_export:
+        code: csv_category_export
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_association_type_import:
+        code: csv_association_type_import
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_association_type_export:
+        code: csv_association_type_export
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_group_import:
+        code: csv_group_import
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_variant_group_import:
+        code: csv_variant_group_import
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_group_export:
+        code: csv_group_export
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_variant_group_export:
+        code: csv_variant_group_export
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_attribute_import:
+        code: csv_attribute_import
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_attribute_export:
+        code: csv_attribute_export
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_option_import:
+        code: csv_option_import
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_option_export:
+        code: csv_option_export
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    yml_rule_import:
+        code: yml_rule_import
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    yml_rule_export:
+        code: yml_rule_export
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_published_product_export:
+        code: csv_published_product_export
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_asset_import:
+        code: csv_asset_import
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_asset_category_export:
+        code: csv_asset_category_export
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_asset_category_import:
+        code: csv_asset_category_import
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_asset_export:
+        code: csv_asset_export
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    csv_asset_variation_export:
+        code: csv_asset_variation_export
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    apply_assets_mass_upload:
+        code: apply_assets_mass_upload
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    yml_asset_channel_configuration_import:
+        code: yml_asset_channel_configuration_import
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    yml_asset_channel_configuration_export:
+        code: yml_asset_channel_configuration_export
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin
+    mongodb_csv_product_import:
+        code: mongodb_csv_product_import
+        executeJobProfile:
+            - Admin
+        editJobProfile:
+            - Admin

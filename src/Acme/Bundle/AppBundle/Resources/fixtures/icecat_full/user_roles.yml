@@ -1,0 +1,13 @@
+user_roles:
+    ROLE_ADMINISTRATOR:
+        label: Administrator
+        code: ROLE_ADMINISTRATOR
+    ROLE_MANAGER:
+        label: Manager
+        code: ROLE_MANAGER
+    ROLE_USER:
+        label: User
+        code: ROLE_USER
+    ROLE_VENDOR:
+        label: Vendor
+        code: ROLE_VENDOR

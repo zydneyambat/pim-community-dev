@@ -1,0 +1,37 @@
+channels:
+    ecommerce:
+        label: Ecommerce
+        color: red
+        code: ecommerce
+        locales:
+            - en_US
+            - fr_FR
+            - de_DE
+        currencies:
+            - EUR
+            - USD
+        tree: master
+    mobile:
+        label: Mobile
+        color: yellow
+        code: mobile
+        locales:
+            - en_US
+            - fr_FR
+            - de_DE
+        currencies:
+            - EUR
+            - USD
+        tree: master
+    print:
+        label: Print
+        color: blue
+        code: print
+        locales:
+            - en_US
+            - fr_FR
+            - de_DE
+        currencies:
+            - EUR
+            - USD
+        tree: master
