@@ -10,6 +10,7 @@ use Pim\Component\Catalog\Factory\GroupFactory;
 use Pim\Component\Catalog\Repository\GroupTypeRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -89,10 +90,6 @@ class VariantGroupController
      */
     public function createAction(Request $request)
     {
-        if (!$request->isXmlHttpRequest()) {
-            return new RedirectResponse($this->router->generate('pim_enrich_variant_group_index'));
-        }
-
         $group = $this->groupFactory->createGroup('VARIANT');
         $group->setProductTemplate($this->productTemplateBuilder->createProductTemplate());
 

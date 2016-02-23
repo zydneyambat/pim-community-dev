@@ -4,19 +4,19 @@ define(
         'underscore',
         'oro/translator',
         'backbone',
-        'routing',
+        'pim/router',
         'oro/loading-mask',
         'pim/datagrid/state',
         'pim/common/column-list-view',
         'backbone/bootstrap-modal',
-        'jquery-ui'
+        'jquery-ui/sortable'
     ],
     function(
         $,
         _,
         __,
         Backbone,
-        Routing,
+        router,
         LoadingMask,
         DatagridState,
         ColumnListView
@@ -101,10 +101,7 @@ define(
 
             execute: function(e) {
                 e.preventDefault();
-                var url = Routing.generate('pim_datagrid_view_list_available_columns', {
-                    alias: this.gridName,
-                    dataLocale: this.locale
-                });
+                var url = router.generate('pim_datagrid_view_list_available_columns', { alias: this.gridName, dataLocale: this.locale });
 
                 var loadingMask = new LoadingMask();
                 loadingMask.render().$el.appendTo($('#container'));
@@ -168,9 +165,7 @@ define(
                         } else {
                             DatagridState.set(this.gridName, 'columns', values.join(','));
                             modal.close();
-                            var url = window.location.hash;
-                            Backbone.history.fragment = new Date().getTime();
-                            Backbone.history.navigate(url, true);
+                            router.reloadPage();
                         }
                     }, this));
                 }, this));

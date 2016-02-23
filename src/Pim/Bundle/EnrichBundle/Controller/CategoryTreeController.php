@@ -104,7 +104,7 @@ class CategoryTreeController extends Controller
      *
      * @return array
      *
-     * @Template
+     * @Template("PimEnrichBundle:CategoryTree:listTree.json.twig")
      */
     public function listTreeAction(Request $request)
     {
@@ -176,9 +176,7 @@ class CategoryTreeController extends Controller
      *
      * @param Request $request
      *
-     * @throws AccessDeniedException
-     *
-     * @Template
+     * @Template("PimEnrichBundle:CategoryTree:children.json.twig")
      *
      * @return array
      */
@@ -283,9 +281,12 @@ class CategoryTreeController extends Controller
                 $this->addFlash('success', $message);
                 $this->eventDispatcher->dispatch(CategoryEvents::POST_CREATE, new GenericEvent($category));
 
-                return $this->redirectToRoute($this->buildRouteName('categorytree_edit'), [
-                    'id' => $category->getId()
-                ]);
+                return new JsonResponse(
+                    [
+                        'route'  => $this->buildRouteName('categorytree_edit'),
+                        'params' => ['id' => $category->getId()]
+                    ]
+                );
             }
         }
 
@@ -332,7 +333,7 @@ class CategoryTreeController extends Controller
         }
 
         return $this->render(
-            sprintf('PimEnrichBundle:CategoryTree:%s.html.twig', $request->get('content', 'edit')),
+            'PimEnrichBundle:CategoryTree:edit.html.twig',
             [
                 'form'           => $form->createView(),
                 'related_entity' => $this->rawConfiguration['related_entity'],
@@ -358,16 +359,12 @@ class CategoryTreeController extends Controller
         }
 
         $category = $this->findCategory($id);
-        $parent = $category->getParent();
-        $params = (null !== $parent) ? ['node' => $parent->getId()] : [];
+        $parent   = $category->getParent();
+        $params   = (null !== $parent) ? ['node' => $parent->getId()] : ['node' => 0];
 
         $this->categoryRemover->remove($category);
 
-        if ($this->getRequest()->isXmlHttpRequest()) {
-            return new Response('', 204);
-        } else {
-            return $this->redirectToRoute($this->buildRouteName('categorytree_index'), $params);
-        }
+        return new JsonResponse(['route' => 'categorytree_index', 'params' => $params]);
     }
 
     /**

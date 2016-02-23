@@ -15,7 +15,7 @@ Feature: Edit attribute options
       | Attribute group | Other |
     And I visit the "Values" tab
     Then I should see the "Options" section
-    Then I should see "To manage options, please save the attribute first"
+    Then I should see the text "To manage options, please save the attribute first"
     And I save the attribute
     Then I should see the flash message "Attribute successfully created"
     And I check the "Automatic option sorting" switch
@@ -31,7 +31,8 @@ Feature: Edit attribute options
       | title   | Cancel modification                                                                                    |
       | content | Warning, you will lose unsaved data. Are you sure you want to cancel modification on this new option ? |
     And I confirm the cancellation
-    Then I should see "green"
+    And I wait for options to load
+    Then I should see the text "green"
     But I should not see "yellow"
 
   Scenario: Successfully edit some attribute options
@@ -41,7 +42,7 @@ Feature: Edit attribute options
       | blue  |
       | green |
     And I edit the "green" option and turn it to "yellow"
-    Then I should see "yellow"
+    Then I should see the text "yellow"
     Then I should not see "green"
 
   @jira https://akeneo.atlassian.net/browse/PIM-6002

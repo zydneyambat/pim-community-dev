@@ -53,6 +53,7 @@
                                     })
                                 });
                             });
+                        window.flashMessages = JSON.parse('{{ app.session.flashbag.all|json_encode()|raw }}');
                     </script>
                     {% placeholder content_after %}
                 {% endblock content %}

@@ -19,7 +19,7 @@ class Index extends Grid
     /**
      * @var string
      */
-    protected $path = '/enrich/product/';
+    protected $path = '#/enrich/product/';
 
     /**
      * {@inheritdoc}
@@ -90,31 +90,17 @@ class Index extends Grid
     }
 
     /**
-     * @param string $category
-     *
-     * @return Index
-     */
-    public function selectTree($category)
-    {
-        $this->getElement('Tree select')->selectOption($category);
-
-        return $this;
-    }
-
-    /**
      * @param Category $category
      *
      * @throws \Exception
      */
     public function clickCategoryFilterLink($category)
     {
-        $elt = $this
-            ->getElement('Categories tree')
-            ->find('css', sprintf('#node_%s a', $category->getId()));
-
-        if (!$elt) {
-            throw new \Exception(sprintf('Could not find category filter "%s".', $category->getId()));
-        }
+        $elt = $this->spin(function () use ($category) {
+            return $this
+                ->getElement('Category tree')
+                ->find('css', sprintf('#node_%s a', $category->getId()));
+        }, sprintf('Could not find category filter "%s".', $category->getId()));
 
         $elt->click();
     }
@@ -125,7 +111,7 @@ class Index extends Grid
     public function clickUnclassifiedCategoryFilterLink()
     {
         $elt = $this
-            ->getElement('Categories tree')
+            ->getElement('Category tree')
             ->find('css', sprintf('#node_-1 a'));
 
         if (!$elt) {

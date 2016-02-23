@@ -17,7 +17,7 @@ class Creation extends Form
     /**
      * @var string
      */
-    protected $path = '/configuration/attribute/create';
+    protected $path = '#/configuration/attribute/create';
 
     /**
      * {@inheritdoc}
@@ -186,12 +186,6 @@ class Creation extends Form
     {
         $optionRow = $this->getOptionElement($optionName);
         $deleteBtn = $optionRow->find('css', '.delete-row');
-
-        if ($deleteBtn === null) {
-            throw new \InvalidArgumentException(
-                sprintf('Remove bouton not found or disabled for %s option', $optionName)
-            );
-        }
 
         $deleteBtn->click();
     }

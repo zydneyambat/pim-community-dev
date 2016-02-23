@@ -78,7 +78,7 @@ define(
                 grid:        '.grid',
                 toolbar:     '.toolbar',
                 noDataBlock: '.no-data',
-                loadingMask: '.loading-mask',
+                loadingMask: '.loading-mask-container',
                 filterBox:   '.filter-box'
             },
 

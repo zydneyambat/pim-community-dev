@@ -17,7 +17,6 @@ use Pim\Component\Catalog\Repository\ProductRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -139,6 +138,50 @@ class ProductController
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Create product
+     *
+     * @param Request $request
+     * @param string  $dataLocale
+     *
+     * @Template
+     * @AclAncestor("pim_enrich_product_create")
+     *
+     * @return array
+     */
+    public function createAction(Request $request, $dataLocale)
+    {
+        $product = $this->productBuilder->createProduct();
+        $form    = $this->formFactory->create('pim_product_create', $product, $this->getCreateFormOptions($product));
+        if ($request->isMethod('POST')) {
+            $form->submit($request);
+            if ($form->isValid()) {
+                $this->productSaver->save($product);
+                $this->request->getSession()->getFlashBag()->add('success', new Message('flash.product.created'));
+
+                if ($dataLocale === null) {
+                    $dataLocale = $this->getDataLocaleCode();
+                }
+
+                $url = $this->router->generate(
+                    'pim_enrich_product_edit',
+                    ['id' => $product->getId(), 'dataLocale' => $dataLocale]
+                );
+                $response = ['status' => 1, 'url' => $url];
+
+                return new Response(json_encode($response));
+            }
+        }
+
+        return [
+            'form'       => $form->createView(),
+            'dataLocale' => $this->getDataLocaleCode()
+        ];
+    }
+
+    /**
+>>>>>>> 5ebd467... New hash nav
      * Edit product
      *
      * @Template
@@ -157,7 +200,7 @@ class ProductController
      * @param Request $request
      * @param int     $id
      *
-     * @return Response|RedirectResponse
+     * @return Response|JsonResponse
      *
      * @AclAncestor("pim_enrich_product_edit_attributes")
      */
@@ -171,16 +214,53 @@ class ProductController
 
         $successMessage = $toggledStatus ? 'flash.product.enabled' : 'flash.product.disabled';
 
-        if ($request->isXmlHttpRequest()) {
-            return new JsonResponse(
-                ['successful' => true, 'message' => $this->translator->trans($successMessage)]
-            );
-        } else {
-            return $this->redirectToRoute('pim_enrich_product_index');
-        }
+        return new JsonResponse(
+            ['successful' => true, 'message' => $this->translator->trans($successMessage)]
+        );
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Switch case to redirect after saving a product from the edit form
+     *
+     * @param array $params
+     *
+     * @return Response
+     */
+    protected function redirectAfterEdit($params)
+    {
+        switch ($this->request->get('action')) {
+            case self::CREATE:
+                $route                  = 'pim_enrich_product_edit';
+                $params['create_popin'] = true;
+                break;
+        }
+
+        return new JsonResponse(['route' => $route, 'params' => $params]);
+    }
+
+    /**
+     * History of a product
+     *
+     * @param int $id
+     *
+     * @AclAncestor("pim_enrich_product_history")
+     *
+     * @return Response
+     */
+    public function historyAction($id)
+    {
+        return $this->templating->renderResponse(
+            'PimEnrichBundle:Product:_history.html.twig',
+            [
+                'product' => $this->findProductOr404($id),
+            ]
+        );
+    }
+
+    /**
+>>>>>>> 5ebd467... New hash nav
      * List categories associated with the provided product and descending from the category
      * defined by the parent parameter.
      *
@@ -190,7 +270,7 @@ class ProductController
      *
      * httpparam include_category if true, will include the parentCategory in the response
      *
-     * @Template
+     * @Template("PimEnrichBundle:Product:listCategories.json.twig")
      * @AclAncestor("pim_enrich_product_categories_view")
      *
      * @return array
@@ -232,6 +312,7 @@ class ProductController
 
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      */
     protected function redirectToRoute($route, $parameters = [])
@@ -244,6 +325,8 @@ class ProductController
     }
 
     /**
+=======
+>>>>>>> 5ebd467... New hash nav
      * @return LocaleInterface[]
      */
     protected function getUserLocales()

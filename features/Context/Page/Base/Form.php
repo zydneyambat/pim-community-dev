@@ -57,7 +57,11 @@ class Form extends Base
      */
     public function save()
     {
-        $this->getElement('Save')->click();
+        $this->spin(function() {
+            $this->getElement('Save')->click();
+
+            return true;
+        });
     }
 
     /**
@@ -311,14 +315,16 @@ class Form extends Base
      */
     public function findAvailableAttributeInGroup($attribute, $group)
     {
-        return $this->getElement('Available attributes form')->find(
-            'css',
-            sprintf(
-                'optgroup[label="%s"] option:contains("%s")',
-                $group,
-                $attribute
-            )
-        );
+        return $this->spin(function() use ($attribute, $group) {
+            return $this->getElement('Available attributes form')->find(
+                'css',
+                sprintf(
+                    'optgroup[label="%s"] option:contains("%s")',
+                    $group,
+                    $attribute
+                )
+            );
+        }, 'Cannot find the available attribute in group');
     }
 
     /**
@@ -788,7 +794,6 @@ class Form extends Base
         if (!$label->getAttribute('for') && null !== $label->channel) {
             $label = $label->getParent()->find('css', sprintf('[data-scope="%s"] label', $label->channel));
         }
-
         $for   = $label->getAttribute('for');
         $field = $this->spin(function () use ($for) {
             return $this->find('css', sprintf('#%s', $for));

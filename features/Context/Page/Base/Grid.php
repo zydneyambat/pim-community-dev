@@ -524,7 +524,6 @@ class Grid extends Index
 
         $values = $this->getValuesInColumn($columnName);
         $values = $this->formatColumnValues($values);
-
         $sortedValues = $values;
 
         if ($order === 'ascending') {
@@ -652,7 +651,7 @@ class Grid extends Index
      *
      * @param string $filterName
      */
-    protected function clickOnFilterToManage($filterName)
+    protected function getFilterElement($filterName)
     {
         $manageFilters = $this->getElement('Manage filters');
         if (!$manageFilters->isVisible()) {
@@ -692,17 +691,39 @@ class Grid extends Index
     }
 
     /**
-     * Open/close filters list
+     * Open filters list
      */
-    protected function clickFiltersList()
+    protected function getFiltersListButton()
     {
-        $filterList = $this->spin(function () {
+        return $this->spin(function () {
             return $this
                 ->getElement('Filters')
                 ->find('css', '#add-filter-button');
         }, 'Impossible to find filter list');
+    }
 
-        $filterList->click();
+    /**
+     * Open filters list
+     */
+    protected function showFiltersList()
+    {
+        $filterList = $this->getElement('Body')->find('css', 'div.filter-list');
+
+        if (!$filterList || !$filterList->isVisible()) {
+            $this->getFiltersListButton()->click();
+        }
+    }
+
+    /**
+     * Close filters list
+     */
+    protected function hideFiltersList()
+    {
+        $filterList = $this->getElement('Body')->find('css', 'div.filter-list');
+
+        if ($filterList && $filterList->isVisible()) {
+            $this->getFiltersListButton()->click();
+        }
     }
 
     /**

@@ -1,3 +1,4 @@
+@javascript
 Feature: Edit a product group
   In order to manage existing product groups for the catalog
   As a product manager
@@ -9,12 +10,18 @@ Feature: Edit a product group
     And I am on the "similar_boots" product group page
     And I visit the "Properties" tab
 
-  @javascript
   Scenario: Successfully edit a group
     Then the product group property "Code" should be disabled
     When I fill in the product group property "English (United States)" with "My similar boots"
     And I press the "Save" button
-    Then I should see "My similar boots"
+    Then I should see the text "My similar boots"
+
+  Scenario: Successfully browse to the history tab after save
+    When I fill in the following information:
+      | English (United States) | My similar boots |
+    And I press the "Save" button
+    Then I visit the "History" tab
+    Then I should see the text "label-en_US: Boots"
 
   @javascript
   Scenario: Successfully display a dialog when we quit a page with unsaved changes

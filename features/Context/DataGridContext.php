@@ -85,7 +85,7 @@ class DataGridContext extends RawMinkContext implements PageObjectAwareInterface
                 assertTrue($this->datagrid->isGridEmpty());
 
                 return true;
-            }, 'Expecting grid to be empty');
+            }, 'Fail to assert that the grid is empty');
 
             return;
         }

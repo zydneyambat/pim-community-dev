@@ -24,7 +24,7 @@ class Edit extends ProductEditForm
     /**
      * @var string
      */
-    protected $path = '/enrich/product/{id}';
+    protected $path = '#/enrich/product/{id}';
 
     /**
      * {@inheritdoc}
@@ -56,6 +56,12 @@ class Edit extends ProductEditForm
                         'Pim\Behat\Decorator\Tree\JsTreeDecorator'
                     ]
                 ],
+                'Category tree selector'           => [
+                    'css'        => '#trees-list',
+                    'decorators' => [
+                        'Pim\Behat\Decorator\TreeSelectorDecorator\ListDecorator'
+                    ]
+                ],
                 'Copy actions'            => ['css' => '.copy-actions'],
                 'Comment threads'         => ['css' => '.comment-threads'],
                 'Meta zone'               => ['css' => '.AknTitleContainer-metaItem'],
@@ -83,6 +89,20 @@ class Edit extends ProductEditForm
                 ]
             ]
         );
+    }
+
+    /**
+     * Press the save button
+     */
+    public function save()
+    {
+        $element = $this->getElement('Save');
+
+        $this->spin(function () use ($element) {
+            return $element->isVisible();
+        }, "Waiting for save button to be visible");
+
+        $element->click();
     }
 
     /**

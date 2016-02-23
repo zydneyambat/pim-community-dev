@@ -15,8 +15,8 @@ define(
         'oro/mediator',
         'pim/form',
         'text!pim/template/product/sequential-edit',
-        'routing',
-        'oro/navigation',
+        'pim/router',
+        'pim/product-manager',
         'pim/fetcher-registry',
         'pim/user-context',
         'bootstrap'
@@ -28,8 +28,8 @@ define(
         mediator,
         BaseForm,
         template,
-        Routing,
-        Navigation,
+        router,
+        ProductManager,
         FetcherRegistry,
         UserContext
     ) {
@@ -46,7 +46,7 @@ define(
                 BaseForm.prototype.initialize.apply(this, arguments);
             },
             configure: function () {
-                FetcherRegistry.clear('sequential-edit');
+                FetcherRegistry.clear('sequentialEdit');
 
                 return $.when(
                     FetcherRegistry.getFetcher('sequential-edit')
@@ -163,15 +163,10 @@ define(
                 });
             },
             goToProduct: function (id) {
-                Navigation.getInstance().setLocation(
-                    Routing.generate(
-                        'pim_enrich_product_edit',
-                        { id: id }
-                    )
-                );
+                router.redirectToRoute('pim_enrich_product_edit', { id: id });
             },
             finish: function () {
-                Navigation.getInstance().setLocation(Routing.generate('pim_enrich_product_index'));
+                router.redirectToRoute('pim_enrich_product_index');
             }
         });
     }

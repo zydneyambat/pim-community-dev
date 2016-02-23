@@ -1,4 +1,5 @@
 define(
+<<<<<<< HEAD
     [
         'jquery',
         'underscore',
@@ -10,6 +11,10 @@ define(
         'oro/navigation'
     ],
     function ($, _, __, Backbone, Routing, LoadingMask, mediator, Navigation) {
+=======
+    ['jquery', 'underscore', 'backbone', 'pim/router', 'oro/loading-mask'],
+    function ($, _, Backbone, router, LoadingMask) {
+>>>>>>> 5ebd467... New hash nav
         'use strict';
 
         return Backbone.View.extend({
@@ -40,11 +45,7 @@ define(
             initialize: function (options) {
                 this.options = _.extend({}, this.defaults, this.options, options);
 
-                mediator.on('hash_navigation_request:complete', function () {
-                    if (this.isDashboardPage()) {
-                        this.delayedLoad();
-                    }
-                }, this);
+                this.listenTo(router, 'route_complete:pim_dashboard_index', this.delayedLoad);
             },
 
             render: function () {
@@ -62,12 +63,12 @@ define(
                 return this;
             },
 
-            isDashboardPage: function () {
-                return Navigation.getInstance().url === Routing.generate('oro_default');
-            },
-
             loadData: function () {
+<<<<<<< HEAD
                 if (!this.isDashboardPage()) {
+=======
+                if (!this.needsData) {
+>>>>>>> 5ebd467... New hash nav
                     this.loadTimeout = null;
 
                     return;
@@ -75,7 +76,7 @@ define(
                 this.needsData = false;
                 this._beforeLoad();
 
-                $.get(Routing.generate('pim_dashboard_widget_data', { alias: this.options.alias }))
+                $.get(router.generate('pim_dashboard_widget_data', { alias: this.options.alias }))
                     .then(_.bind(function (resp) {
                         this.data = this._processResponse(resp);
                         this.render();

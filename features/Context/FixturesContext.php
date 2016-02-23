@@ -12,6 +12,7 @@ use Akeneo\Component\Localization\Localizer\LocalizerInterface;
 use Akeneo\Component\StorageUtils\Saver\SaverInterface;
 use Behat\Behat\Context\Step;
 use Behat\Gherkin\Node\TableNode;
+use Context\Spin\SpinCapableTrait;
 use Doctrine\Common\Util\ClassUtils;
 use League\Flysystem\MountManager;
 use Oro\Bundle\UserBundle\Entity\Role;
@@ -46,6 +47,8 @@ use Pim\Component\ReferenceData\Model\ReferenceDataInterface;
  */
 class FixturesContext extends BaseFixturesContext
 {
+    use SpinCapableTrait;
+
     protected $locales = [
         'english'    => 'en_US',
         'french'     => 'fr_FR',

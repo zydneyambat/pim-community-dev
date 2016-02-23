@@ -17,7 +17,7 @@ Feature: Create attribute options
       | Attribute group | Other |
     And I visit the "Values" tab
     Then I should see the "Options" section
-    And I should see "To manage options, please save the attribute first"
+    And I should see the text "To manage options, please save the attribute first"
     When I save the attribute
     Then I should not see the text "There are unsaved changes."
     When I check the "Automatic option sorting" switch
@@ -53,4 +53,3 @@ Feature: Create attribute options
     And I add an empty attribute option
     And I save the attribute
     Then the Options section should contain 4 options
-
