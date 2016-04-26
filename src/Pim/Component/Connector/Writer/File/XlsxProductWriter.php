@@ -32,6 +32,9 @@ class XlsxProductWriter extends AbstractFileWriter implements ItemWriterInterfac
     /** @var TODO int ? string ? */
     protected $linesPerFiles;
 
+    /** @var int */
+    protected $fileCount;
+
     /**
      * @param FilePathResolverInterface $filePathResolver
      * @param FlatItemBuffer            $flatRowBuffer
@@ -47,6 +50,7 @@ class XlsxProductWriter extends AbstractFileWriter implements ItemWriterInterfac
         $this->flatRowBuffer = $flatRowBuffer;
         $this->mediaCopier   = $mediaCopier;
         $this->writtenFiles  = [];
+        $this->fileCount     = 0;
     }
 
     /**
@@ -87,57 +91,77 @@ class XlsxProductWriter extends AbstractFileWriter implements ItemWriterInterfac
      */
     public function flush()
     {
-        $filesNb = 0;
-        $buffer  = $this->flatRowBuffer->getBuffer();
-        $buffer->rewind();
-
-        while ($buffer->valid()) {
-            $filesNb++;
-            $this->forceFileName($filesNb);
-
-            $writer = WriterFactory::create(Type::XLSX);
-            $this->fillFile($writer, $buffer);
-            $this->writtenFiles[$this->getPath()] = basename($this->getPath());
+        if ($this->severalFilesNeeded()) {
+            $this->enforceFileName();
         }
 
-        // TODO rename the first file "file_1.xlsx" instead of "file.xlsx" if $filesNb > 1
-    }
-
-    protected function forceFileName($filesNb)
-    {
-        if (2 === $filesNb) {
-            $ext = strrchr($this->filePath, '.');
-            $filePath = strstr($this->filePath, $ext, true);
-            $this->filePath = $filePath . '%fileNb%' . $ext;
-        }
-        if ($filesNb > 1) {
-            $this->resolvedFilePath = null;
-            $this->filePathResolverOptions['parameters']['%fileNb%'] = sprintf('_%d', $filesNb);
-        }
-    }
-
-    protected function fillFile(WriterInterface $writer, BufferInterface $buffer)
-    {
-        $writer->openToFile($this->getPath());
-        $writtenLinesCount = 0;
-
-        $headers = $this->flatRowBuffer->getHeaders();
+        $headers    = $this->flatRowBuffer->getHeaders();
         $hollowItem = array_fill_keys($headers, '');
-        $writer->addRow($headers);
-        empty($headers) ? : $writtenLinesCount++;
 
-        while($buffer->valid() && $this->getLinesPerFiles() > $writtenLinesCount) {
-            $item = array_replace($hollowItem, $buffer->current());
+        $fileCount = 0;
+        $writtenLinesCount = 0;
+        foreach ($this->flatRowBuffer->getBuffer() as $count => $incompleteItem) {
+            if (0 === $writtenLinesCount % $this->getLinesPerFiles()) {
+                if ($this->severalFilesNeeded()) {
+                    $this->updateFilePathResolverOptions(['fileNb' => sprintf('_%d', ++$fileCount)]);
+                }
+
+                $writer = $this->getWriter();
+                $writer->addRow($headers);
+                $writtenLinesCount = empty($headers) ? 0 : 1;
+            }
+
+            $item = array_replace($hollowItem, $incompleteItem);
             $writer->addRow($item);
             $writtenLinesCount++;
 
             if (null !== $this->stepExecution) {
                 $this->stepExecution->incrementSummaryInfo('write');
             }
-            $buffer->next();
-        }
 
-        $writer->close();
+            if (0 === $writtenLinesCount % $this->getLinesPerFiles() || $this->flatRowBuffer->count() === $count + 1) {
+                $writer->close();
+                $this->writtenFiles[$this->getPath()] = basename($this->getPath());
+                $writtenLinesCount = 0;
+            }
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    protected function severalFilesNeeded()
+    {
+        $itemCount = $this->flatRowBuffer->count();
+        $hasHeader = empty($this->flatRowBuffer->getHeaders());
+
+        $totalLineCount  = $hasHeader ? ++$itemCount : $itemCount;
+        $fileCountNeeded = ceil($totalLineCount / $this->getLinesPerFiles());
+
+        return $fileCountNeeded > 1;
+    }
+
+    /**
+     * Add a %fileNb% pattern in the file name
+     */
+    protected function enforceFileName()
+    {
+        $ext = strrchr($this->filePath, '.');
+        $filePath = strstr($this->filePath, $ext, true);
+        $this->setFilePath($filePath . '%fileNb%' . $ext);
+    }
+
+    /**
+     * @param array $headers
+     *
+     * @return WriterInterface
+     */
+    protected function getWriter()
+    {
+        $writer = WriterFactory::create(Type::XLSX);
+        $writer->openToFile($this->getPath());
+
+        return $writer;
     }
 
     /**
@@ -220,8 +244,6 @@ class XlsxProductWriter extends AbstractFileWriter implements ItemWriterInterfac
             return;
         }
 
-        foreach ($config['mainContext'] as $key => $value) {
-            $this->filePathResolverOptions['parameters']['%' . $key . '%'] = $value;
-        }
+        $this->updateFilePathResolverOptions($config['mainContext']);
     }
 }

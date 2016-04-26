@@ -20,6 +20,12 @@ class XlsxSimpleWriter extends AbstractFileWriter
     /** @var FlatItemBuffer */
     protected $flatRowBuffer;
 
+    /** @var TODO int ? string ? */
+    protected $linesPerFiles;
+
+    /** @var int */
+    protected $writtenLinesCount;
+
     /**
      * @param FilePathResolverInterface $filePathResolver
      * @param FlatItemBuffer            $flatRowBuffer
@@ -28,7 +34,8 @@ class XlsxSimpleWriter extends AbstractFileWriter
     {
         parent::__construct($filePathResolver);
 
-        $this->flatRowBuffer = $flatRowBuffer;
+        $this->flatRowBuffer     = $flatRowBuffer;
+        $this->writtenLinesCount = 0;
     }
 
     /**
@@ -79,6 +86,13 @@ class XlsxSimpleWriter extends AbstractFileWriter
                     'help'  => 'pim_connector.export.filePath.help',
                 ],
             ],
+            'linesPerFiles' => [
+                'type'    => 'number',
+                'options' => [
+                    'label' => 'pim_connector.export.lines_per_files.label',
+                    'help'  => 'pim_connector.export.lines_per_files.help'
+                ]
+            ],
             'withHeader' => [
                 'type'    => 'switch',
                 'options' => [
@@ -103,5 +117,21 @@ class XlsxSimpleWriter extends AbstractFileWriter
     public function setWithHeader($withHeader)
     {
         $this->withHeader = $withHeader;
+    }
+
+    /**
+     * @return TODO
+     */
+    public function getLinesPerFiles()
+    {
+        return $this->linesPerFiles;
+    }
+
+    /**
+     * @param TODO $linesPerFiles
+     */
+    public function setLinesPerFiles($linesPerFiles)
+    {
+        $this->linesPerFiles = $linesPerFiles;
     }
 }

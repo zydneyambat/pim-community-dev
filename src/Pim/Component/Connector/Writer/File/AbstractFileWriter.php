@@ -111,4 +111,15 @@ abstract class AbstractFileWriter extends AbstractConfigurableStepElement implem
     {
         $this->stepExecution = $stepExecution;
     }
+
+    /**
+     * @param array $params ['token1' => 'value1', ...]
+     */
+    protected function updateFilePathResolverOptions(array $params)
+    {
+        foreach ($params as $token => $value) {
+            $this->filePathResolverOptions['parameters']['%' . $token . '%'] = $value;
+        }
+        $this->resolvedFilePath = null;
+    }
 }
