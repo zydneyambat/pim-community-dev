@@ -3,8 +3,10 @@
 namespace Pim\Component\Connector\Writer\File;
 
 use Akeneo\Component\Batch\Item\ItemWriterInterface;
+use Akeneo\Component\Buffer\BufferInterface;
 use Box\Spout\Common\Type;
 use Box\Spout\Writer\WriterFactory;
+use Box\Spout\Writer\WriterInterface;
 
 /**
  * Write product data into a XLSX file on the local filesystem
@@ -26,6 +28,9 @@ class XlsxProductWriter extends AbstractFileWriter implements ItemWriterInterfac
 
     /** @var array */
     protected $writtenFiles;
+
+    /** @var TODO int ? string ? */
+    protected $linesPerFiles;
 
     /**
      * @param FilePathResolverInterface $filePathResolver
@@ -82,23 +87,57 @@ class XlsxProductWriter extends AbstractFileWriter implements ItemWriterInterfac
      */
     public function flush()
     {
-        $writer = WriterFactory::create(Type::XLSX);
+        $filesNb = 0;
+        $buffer  = $this->flatRowBuffer->getBuffer();
+        $buffer->rewind();
+
+        while ($buffer->valid()) {
+            $filesNb++;
+            $this->forceFileName($filesNb);
+
+            $writer = WriterFactory::create(Type::XLSX);
+            $this->fillFile($writer, $buffer);
+            $this->writtenFiles[$this->getPath()] = basename($this->getPath());
+        }
+
+        // TODO rename the first file "file_1.xlsx" instead of "file.xlsx" if $filesNb > 1
+    }
+
+    protected function forceFileName($filesNb)
+    {
+        if (2 === $filesNb) {
+            $ext = strrchr($this->filePath, '.');
+            $filePath = strstr($this->filePath, $ext, true);
+            $this->filePath = $filePath . '%fileNb%' . $ext;
+        }
+        if ($filesNb > 1) {
+            $this->resolvedFilePath = null;
+            $this->filePathResolverOptions['parameters']['%fileNb%'] = sprintf('_%d', $filesNb);
+        }
+    }
+
+    protected function fillFile(WriterInterface $writer, BufferInterface $buffer)
+    {
         $writer->openToFile($this->getPath());
+        $writtenLinesCount = 0;
 
         $headers = $this->flatRowBuffer->getHeaders();
         $hollowItem = array_fill_keys($headers, '');
         $writer->addRow($headers);
-        foreach ($this->flatRowBuffer->getBuffer() as $incompleteItem) {
-            $item = array_replace($hollowItem, $incompleteItem);
+        empty($headers) ? : $writtenLinesCount++;
+
+        while($buffer->valid() && $this->getLinesPerFiles() > $writtenLinesCount) {
+            $item = array_replace($hollowItem, $buffer->current());
             $writer->addRow($item);
+            $writtenLinesCount++;
 
             if (null !== $this->stepExecution) {
                 $this->stepExecution->incrementSummaryInfo('write');
             }
+            $buffer->next();
         }
 
         $writer->close();
-        $this->writtenFiles[$this->getPath()] = basename($this->getPath());
     }
 
     /**
@@ -120,6 +159,13 @@ class XlsxProductWriter extends AbstractFileWriter implements ItemWriterInterfac
                     'label' => 'pim_connector.export.filePath.label',
                     'help'  => 'pim_connector.export.filePath.help',
                 ],
+            ],
+            'linesPerFiles' => [
+                'type'    => 'number',
+                'options' => [
+                    'label' => 'pim_connector.export.lines_per_files.label',
+                    'help'  => 'pim_connector.export.lines_per_files.help'
+                ]
             ],
             'withHeader' => [
                 'type'    => 'switch',
@@ -145,6 +191,22 @@ class XlsxProductWriter extends AbstractFileWriter implements ItemWriterInterfac
     public function setWithHeader($withHeader)
     {
         $this->withHeader = $withHeader;
+    }
+
+    /**
+     * @return TODO
+     */
+    public function getLinesPerFiles()
+    {
+        return $this->linesPerFiles;
+    }
+
+    /**
+     * @param TODO $linesPerFiles
+     */
+    public function setLinesPerFiles($linesPerFiles)
+    {
+        $this->linesPerFiles = $linesPerFiles;
     }
 
     /**
