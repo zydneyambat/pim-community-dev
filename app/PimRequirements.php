@@ -45,6 +45,12 @@ class PimRequirements extends OroRequirements
         }
 
         $this->addPimRequirement(
+            extension_loaded('apcu') || extension_loaded('apc'),
+            'Extension php5-apc or php5-apcu should be installed',
+            'Install and enable <strong>php5-apc or php5-apcu</strong>'
+        );
+
+        $this->addPimRequirement(
             function_exists('exec'),
             'The exec() function should be enabled in order to run jobs',
             'Make sure the <strong>exec()</strong> function is not disabled in php.ini'
