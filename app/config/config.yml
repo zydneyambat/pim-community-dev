@@ -95,3 +95,5 @@ akeneo_storage_utils:
         -
             original: Pim\Component\Catalog\Model\ProductValue
             override: Acme\Bundle\AppBundle\Model\ProductValue
+
+demo_mode: true
