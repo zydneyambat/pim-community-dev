@@ -6,6 +6,7 @@ use Behat\Mink\Element\Element;
 use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Exception\ExpectationException;
+use Context\Spin\TimeoutException;
 
 /**
  * Product Edit Form
@@ -200,7 +201,7 @@ class ProductEditForm extends Form
 
         $container = $this->spin(function () use ($labelNode) {
             return $labelNode->getParent()->getParent()->getParent();
-        });
+        }, sprintf('Field container not found for "%s"', $label));
 
         $container->name = $label;
 
@@ -245,20 +246,43 @@ class ProductEditForm extends Form
      */
     protected function fillTextAreaField(NodeElement $fieldContainer, $value)
     {
-        $this->spin(function () use ($value, $fieldContainer) {
-            $field = $fieldContainer->find('css', 'div.field-input > textarea');
+        try {
+            $field = $this->spin(function () use ($fieldContainer) {
+                return $fieldContainer->find('css', 'div.field-input > textarea');
+            });
+        } catch (TimeoutException $e) {
+            $field = $this->spin(function () use ($fieldContainer) {
+                return $fieldContainer->find('css', 'div.note-editor > .note-editable');
+            }, 'Textarea field not found');
+        }
 
-            if (!$field || !$field->isVisible()) {
-                // the textarea can be hidden (display=none) when using WYSIWYG
-                $field = $fieldContainer->find('css', 'div.note-editor > .note-editable');
-            }
+        if (!$field->isVisible()) {
+            // the textarea can be hidden (display=none) when using WYSIWYG
+            $field = $this->spin(function () use ($fieldContainer) {
+                return $fieldContainer->find('css', 'div.note-editor > .note-editable');
+            }, 'Textarea note-editable field not found');
+        }
 
-            $field->setValue($value);
+        $field->setValue($value);
 
-            return ($field->getValue() === $value || $field->getHtml() === $value);
-        });
+        if (!($field->getValue() === $value || $field->getHtml() === $value)) {
+//            $this->getSession()->executeScript('$(\'.note-editable\').html(\'%s\');');
+        }
 
         $this->getSession()->executeScript('$(\'.field-input textarea\').trigger(\'change\');');
+    }
+
+    /**
+     * Fills a WYSIWYG field element with $value
+     *
+     * @param NodeElement $fieldContainer
+     * @param string      $value
+     */
+    protected function fillWysiwygField(NodeElement $fieldContainer, $value)
+    {
+        $field = $this->spin(function () use ($fieldContainer) {
+            return $fieldContainer->find('css', 'div.note-editor > .note-editable');
+        }, 'Textarea field not found');
     }
 
     /**

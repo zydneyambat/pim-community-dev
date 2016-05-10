@@ -324,7 +324,7 @@ class WebUser extends RawMinkContext
     public function iSwitchTheScopeTo($scope)
     {
         $this->getCurrentPage()->getElement('Main context selector')->switchScope($scope);
-        $this->wait();
+//        $this->wait();
     }
 
     /**
@@ -807,7 +807,6 @@ class WebUser extends RawMinkContext
      * @param string $value
      * @param string $language
      *
-     *
      * @When /^I change the (?P<field>\w+) to "([^"]*)"$/
      * @When /^I change the "(?P<field>[^"]*)" to "([^"]*)"$/
      * @When /^I change the (?P<language>\w+) (?P<field>\w+) to "(?P<value>[^"]*)"$/
@@ -815,15 +814,15 @@ class WebUser extends RawMinkContext
      */
     public function iChangeTheTo($field, $value = null, $language = null)
     {
-        if (null !== $language) {
-            try {
-                $field = $this->spin(function () use ($field, $language) {
-                    return $this->getCurrentPage()->getFieldLocator($field, $this->getLocaleCode($language));
-                });
-            } catch (\BadMethodCallException $e) {
-                // Use default $field if current page does not provide a getFieldLocator method
-            }
-        }
+//        if (null !== $language) {
+//            try {
+//                $field = $this->spin(function () use ($field, $language) {
+//                    return $this->getCurrentPage()->getFieldLocator($field, $this->getLocaleCode($language));
+//                });
+//            } catch (\BadMethodCallException $e) {
+//                // Use default $field if current page does not provide a getFieldLocator method
+//            }
+//        }
 
         $value = $value !== null ? $value : $this->getInvalidValueFor(
             sprintf('%s.%s', $this->getNavigationContext()->currentPage, $field)

@@ -608,7 +608,7 @@ class Form extends Base
         if ($element) {
             $label = $this->spin(function () use ($element, $labelContent) {
                 return $element->find('css', sprintf('label:contains("%s")', $labelContent));
-            });
+            }, sprintf('Label containing "%s" not found', $labelContent));
         } else {
             $labeParts = explode(' ', $labelContent);
             $channel   = in_array(reset($labeParts), ['mobile', 'ecommerce', 'print', 'tablet']) ?
@@ -621,7 +621,7 @@ class Form extends Base
 
             $label = $this->spin(function () use ($labelContent) {
                 return $this->find('css', sprintf('label:contains("%s")', $labelContent));
-            });
+            }, sprintf('Label containing "%s" not found', $labelContent));
         }
 
         if (!$label) {
