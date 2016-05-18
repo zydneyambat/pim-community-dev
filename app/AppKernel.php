@@ -19,7 +19,6 @@ class AppKernel extends Kernel
     {
         $bundles = [
             // your app bundles should be registered here
-            new Acme\Bundle\AppBundle\AcmeAppBundle(),
         ];
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'behat'))) {
@@ -130,7 +129,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             // Uncomment the following line to use MongoDB implementation
-            // new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
+            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
         ];
     }
 

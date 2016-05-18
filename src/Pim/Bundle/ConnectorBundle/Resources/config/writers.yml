@@ -6,6 +6,7 @@ parameters:
     pim_connector.writer.doctrine.variant_group.class:             Pim\Component\Connector\Writer\Doctrine\VariantGroupWriter
     pim_connector.writer.file.abstract.class:                      Pim\Component\Connector\Writer\File\AbstractFileWriter
     pim_connector.writer.file.csv.class:                           Pim\Component\Connector\Writer\File\CsvWriter
+    pim_connector.writer.file.json.class:                           Pim\Component\Connector\Writer\File\JsonWriter
     pim_connector.writer.file.csv_product.class:                   Pim\Component\Connector\Writer\File\CsvProductWriter
     pim_connector.writer.file.file_exporter.class:                 Pim\Component\Connector\Writer\File\FileExporter
     pim_connector.writer.file.file_path_resolver.class:            Pim\Component\Connector\Writer\File\FilePathResolver
@@ -78,6 +79,11 @@ services:
     # File writers
     pim_connector.writer.file.simple_file:
         class: %pim_connector.writer.file.simple_file.class%
+        arguments:
+            - '@pim_connector.writer.file.file_path_resolver'
+
+    pim_connector.writer.file.json:
+        class: '%pim_connector.writer.file.json.class%'
         arguments:
             - '@pim_connector.writer.file.file_path_resolver'
 

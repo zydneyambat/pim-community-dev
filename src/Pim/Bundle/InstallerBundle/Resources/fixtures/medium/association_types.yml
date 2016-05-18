@@ -1,0 +1,25 @@
+associations:
+    QUO:
+        labels:
+            fr_FR: maxime
+            en_US: modi
+            ru_RU: officia
+            it_IT: perferendis
+    DEBITIS:
+        labels:
+            fr_FR: est
+            en_US: qui
+            ru_RU: autem
+            it_IT: et
+    NEQUE:
+        labels:
+            fr_FR: dolorem
+            en_US: nulla
+            ru_RU: ea
+            it_IT: ea
+    EA:
+        labels:
+            fr_FR: non
+            en_US: et
+            ru_RU: nobis
+            it_IT: natus
