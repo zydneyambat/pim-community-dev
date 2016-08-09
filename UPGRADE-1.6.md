@@ -1,31 +1,129 @@
 # UPGRADE FROM 1.5 to 1.6
 
-> Please perform a backup of your database before proceeding to the migration. You can use tools like  [mysqldump](http://dev.mysql.com/doc/refman/5.1/en/mysqldump.html) and [mongodump](http://docs.mongodb.org/manual/reference/program/mongodump/).
+> Please perform a backup of your database before proceeding to the migration. You can use tools like [mysqldump](http://dev.mysql.com/doc/refman/5.1/en/mysqldump.html) and [mongodump](http://docs.mongodb.org/manual/reference/program/mongodump/).
 
 > Please perform a backup of your codebase if you don't use any VCS.
 
-## Catalog Bundle & Component
+## Migrate your standard project
 
-We've extracted following classes and interfaces from the Catalog bundle to the Catalog component:
- - validation
+1. Download the latest [PIM community standard](http://www.akeneo.com/download/) and extract it:
 
-## Batch Bundle & Component
+    ```
+     wget http://www.akeneo.com/pim-community-standard-v1.6-latest.tar.gz
+     tar -zxf pim-community-standard-v1.6-latest.tar.gz
+     cd pim-community-standard-v1.6.*/
+    ```
 
-This component has been re-work to be more focus on a more robust batch processing and to extract UI concerns.
+2. Copy the following files to your PIM installation:
 
-We've extracted the template concern from JobInterface.
-In 1.5, you have to declare your custom twig template to use to view or edit a job in the batch_jobs.yml.
-In 1.6, you can register them in the JobTemplateProvider through the parameters %pim_import_export.job_template.config%.
-Migration, you need to remove your 'show_template' and 'edit_template' configuration from your custom batch_jobs.yml file.
+    ```
+     export PIM_DIR=/path/to/your/pim/installation
+     cp app/SymfonyRequirements.php $PIM_DIR/app
+     cp app/SymfonyRequirements.php $PIM_DIR/app
+     cp app/config/config.yml $PIM_DIR/app/config/ should be cp app/config/pim_parameters.yml $PIM_DIR/app/config ?
+     cp composer.json $PIM_DIR/
+    ```
 
-We've extracted the translated labels concern from JobInterface and StepInterface.
-In 1.5, you have to declare your titles in batch_jobs.yml for jobs and steps.
-In 1.6, you only have to add a translation key following this convention,
- - for a Job, batch_jobs.job_name.label (ex: batch_jobs.csv_product_export.label: "Product export in CSV")
- - for a Step, batch_jobs.job_name.step_name.label (batch_jobs.csv_product_export.export.label: "Product export step")
-Migration, you need to remove your 'title' configuration from your custom batch_jobs.yml file.
+3. Update your **config.yml**
 
-## Definition of Batch Jobs services
+    * Remove the configuration of `CatalogBundle` from this file (config tree :`pim_catalog`).
+    * Update the default locale from `en_US` to `en`
+
+4. Update your **app/AppKernel.php**:
+
+    * Remove the following bundles:
+        - `Pim\Bundle\BaseConnectorBundle\PimBaseConnectorBundle`
+        - `Pim\Bundle\TransformBundle\PimTransformBundle`
+        - `Nelmio\ApiDocBundle\NelmioApiDocBundle`
+
+5. Update your **app/config/routing.yml**:
+
+    * Remove the route: `nelmio_api_doc`
+
+6. Then remove your old upgrades folder:
+    ```
+     rm upgrades/ -rf
+    ```
+
+7. Now you're ready to update your dependencies:
+
+    * **Caution**, don't forget to re-add your own dependencies to your *composer.json* in case you have some:
+
+        ```
+        "require": {
+            "your/dependencies": "version",
+            "your/other-dependencies": "version",
+        }
+        ```
+
+        Especially if you store your product in Mongo, don't forget to add `doctrine/mongodb-odm-bundle`:
+
+        ```
+        "require": {
+            "doctrine/mongodb-odm-bundle": "3.2.0"
+        }
+        ```
+
+    * Then run the command to update your dependencies:
+
+        ```
+         cd $PIM_DIR
+         composer update
+        ```
+
+        This step will also copy the upgrades folder from `vendor/akeneo/pim-community-dev/` to your Pim project root to allow you to migrate.
+
+8. Then you can migrate your database using:
+
+    ```
+     php app/console doctrine:migration:migrate
+    ```
+
+##  Migrate your custom code
+
+Assuming you've added custom code in your standard project, the following sections will help you to migrate your code.
+
+In the context of our Developer eXperience strategy, the v1.6 version brings a standardization of the whole Import/Export stack, remove deprecated services and make the pieces more re-usable.
+
+That's why most of the following upgrade section is related to Import/Export classes.
+
+### Global updates for any projects
+
+#### Introducing Pim\Component\Catalog\AttributeTypeInterface
+
+We've extracted business properties of attribute types by introducing a `Pim\Component\Catalog\AttributeTypeInterface`.*
+There is no impact for custom attribute types except that backend type constants `BACKEND_TYPE_*` have been moved from `Pim\Bundle\CatalogBundle\AttributeType\AbstractAttributeType` to `Pim\Component\Catalog\AttributeTypes`.
+To detect the files impacted by this change, you can execute the following command in your project folder:
+```
+    grep -rl 'AbstractAttributeType::BACKEND_TYPE' src/*
+```
+Then you can replace these uses of `AbstractAttributeType` by `AttributeTypeInterface`.
+
+### I wrote a custom Import / Export
+
+#### Remove the reference to class `Akeneo\Bundle\BatchBundle\Connector\Connector`
+
+In v1.0, your bundle containing a custom Connector had to extends the class `Akeneo\Bundle\BatchBundle\Connector\Connector`.
+
+It's not required anymore and this deprecated class has been removed.
+
+To detect the files impacted by this change, you can execute the following command in your project folder:
+```
+    grep -rl 'Akeneo\\Bundle\\BatchBundle\\Connector\\Connector' src/*
+```
+
+Then you can do the following change, ie, does not extend `Akeneo\Bundle\BatchBundle\Connector\Connector` to extend `Symfony\Component\HttpKernel\Bundle\Bundle`.
+```
+ namespace Acme\Bundle\MyBundle;
+
+ -use Akeneo\Bundle\BatchBundle\Connector\Connector;
+ +use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+ -class AcmeMyBundle extends Connector
+ +class AcmeMyBundle extends Bundle
+```
+
+#### Change the definition of Batch Jobs services
 
 Since the v1.0, the definition of Jobs is done through a dedicated batch_jobs.yml configuration file.
 This file is automatically found and parsed by a dedicated compiler pass scanning all bundles.
@@ -120,11 +218,57 @@ class PimConnectorExtension extends Extension
 }
 ```
 
-## Deprecated imports
+#### Remove the `Akeneo\Component\Batch\Item\AbstractConfigurableStepElement`
+
+This legacy interface has been removed, now your StepElement, for instance, Reader, Processor, Writer only implement
+
+To detect the files impacted by this change, you can execute the following command in your project folder:
+```
+    grep -rl 'AbstractConfigurableStepElement' src/*
+```
+
+Then you can apply the following change, ie, does not extend `Akeneo\Component\Batch\Item\AbstractConfigurableStepElement`.
+
+```
+namespace Acme\Bundle\MyBundle\Processor;
+
+-use Akeneo\Component\Batch\Item\AbstractConfigurableStepElement;
+use Akeneo\Component\Batch\Item\ItemProcessorInterface;
+
+-class FamilyToFlatArrayProcessor extends AbstractConfigurableStepElement implements ItemProcessorInterface
++class FamilyToFlatArrayProcessor implements ItemProcessorInterface
+```
+
+If you declare a `public function initialize()` method in your StepElement, you need to implement `Akeneo\Component\Batch\Item\InitializableInterface`.
+If you declare a `public function flush()` method in your StepElement, you need to implement `Akeneo\Component\Batch\Item\FlushableInterface`
+
+Before the 1.6, the call of these logics was ensured by a `method_exists` in the `Akeneo\Component\Batch\Step\ItemStep`, now you need to implement the relevant interface.
+
+#### Update your own Reader, Processor, Writer
+
+TODO declare JobParameters services and use it in StepElement
+
+#### Extract UI concerns from Batch Bundle & Component
+
+This component has been re-work to be more focus on a more robust batch processing and to extract UI concerns.
+
+We've extracted the template concern from JobInterface.
+In 1.5, you have to declare your custom twig template to use to view or edit a job in the batch_jobs.yml.
+In 1.6, you can register them in the JobTemplateProvider through the parameters %pim_import_export.job_template.config%.
+Migration, you need to remove your 'show_template' and 'edit_template' configuration from your custom batch_jobs.yml file.
+
+We've extracted the translated labels concern from JobInterface and StepInterface.
+In 1.5, you have to declare your titles in batch_jobs.yml for jobs and steps.
+In 1.6, you only have to add a translation key following this convention,
+ - for a Job, batch_jobs.job_name.label (ex: batch_jobs.csv_product_export.label: "Product export in CSV")
+ - for a Step, batch_jobs.job_name.step_name.label (batch_jobs.csv_product_export.export.label: "Product export step")
+Migration, you need to remove your 'title' configuration from your custom batch_jobs.yml file.
+
+#### Deprecated imports
 
 We've removed `TransformBundle` and `BaseConnectorBundle` because they are deprecated since the new import system has been created.
 
-### TransformBundle
+#### TransformBundle
 
 Flat (De)Normalizers have been to moved to `VersioningBundle` and Structured ones have been to moved to `Catalog` component
 
@@ -145,7 +289,7 @@ Based on a PIM standard installation, execute the following command in your proj
     find ./src/ -type f -print0 | xargs -0 sed -i 's/Pim\\Bundle\\TransformBundle\\Converter/Pim\\Component\\Catalog\\Converter/g'
 ```
 
-### Reader and Processor services
+#### Reader and Processor services
 
 The converter services allowed to convert from flat data (e.g. CSV) to standard format. Conversion has moved from processors to readers.
 Now the processors only accept standard format, and the naming has changed from `pim_connector.processor.normalization.<class>.flat` to `pim_connector.processor.normalization.<class>`.
@@ -167,7 +311,7 @@ If you use in your import standard Akeneo PIM processor and reader services, ple
     find ./src/ -type f -print0 | xargs -0 sed -i 's/pim_base_connector\.reader\.repository\.variant_group/pim_connector\.reader\.database\.variant_group/g
 ```
 
-### BaseConnectorBundle
+#### BaseConnectorBundle
 
 TODO : This bundle will be removed after the export refactoring
 ```
@@ -187,129 +331,7 @@ TODO : This bundle will be removed after the export refactoring
 
 See the documentation [here](http://docs.akeneo.com/latest/reference/import_export/index.html).
 
-
-## Update dependencies and configuration
-
-1. Download the latest [PIM community standard](http://www.akeneo.com/download/) and extract it:
-
-    ```
-     wget http://www.akeneo.com/pim-community-standard-v1.6-latest.tar.gz
-     tar -zxf pim-community-standard-v1.6-latest.tar.gz
-     cd pim-community-standard-v1.6.*/
-    ```
-
-2. Copy the following files to your PIM installation:
-
-    ```
-     export PIM_DIR=/path/to/your/pim/installation
-     cp app/SymfonyRequirements.php $PIM_DIR/app
-     cp app/SymfonyRequirements.php $PIM_DIR/app
-     cp app/config/config.yml $PIM_DIR/app/config/ should be cp app/config/pim_parameters.yml $PIM_DIR/app/config ?
-     cp composer.json $PIM_DIR/
-    ```
-
-3. Update your **config.yml**
-
-    * Remove the configuration of `CatalogBundle` from this file (config tree :`pim_catalog`).
-    * Update the default locale from `en_US` to `en`
-
-4. Update your **app/AppKernel.php**:
-
-    * Remove the following bundles: 
-        - `Pim\Bundle\BaseConnectorBundle\PimBaseConnectorBundle`
-        - `Pim\Bundle\TransformBundle\PimTransformBundle`
-        - `Nelmio\ApiDocBundle\NelmioApiDocBundle`
-        
-5. Update your **app/config/routing.yml**: 
-
-    * Remove the route: `nelmio_api_doc`
-
-6. Then remove your old upgrades folder:
-    ```
-     rm upgrades/ -rf
-    ```
-
-7. Now you're ready to update your dependencies:
-
-    * **Caution**, don't forget to re-add your own dependencies to your *composer.json* in case you have some:
-        
-        ```
-        "require": {
-            "your/dependencies": "version",
-            "your/other-dependencies": "version",
-        }
-        ```
-        
-        Especially if you store your product in Mongo, don't forget to add `doctrine/mongodb-odm-bundle`:
-        
-        ```
-        "require": {
-            "doctrine/mongodb-odm-bundle": "3.2.0"
-        }
-        ```
-    
-    * Then run the command to update your dependencies:
-    
-        ```
-         cd $PIM_DIR
-         composer update
-        ```
-
-        This step will also copy the upgrades folder from `vendor/akeneo/pim-community-dev/` to your Pim project root to allow you to migrate.
-
-8. Then you can migrate your database using:
-
-    ```
-     php app/console doctrine:migration:migrate
-    ```
-
-## Domain layer extraction
-
-We extracted the business classes into Components.
- 
-### Catalog
-
-We extracted business related stuff about attribute types by introducing `Pim\Component\Catalog\AttributeTypeInterface`.*
-There is no impact for custom attribute types except that backend type constants `BACKEND_TYPE_*` have been moved from `Pim\Bundle\CatalogBundle\AttributeType\AbstractAttributeType` to `Pim\Component\Catalog\AttributeTypes`. 
-To detect the files impacted by this change, you can execute the following command in your project folder:
-```
-    grep -rl 'AbstractAttributeType::BACKEND_TYPE' src/* 
-```
-
-## Mass edit actions declaration
-
-In 1.5 and before mass edit actions could be declared like this:
-```
-my_bundle.mass_edit_action.my_action:
-        public: false
-        class: '%my_bundle.mass_edit_action.my_action.class%'
-        tags:
-            -
-                name: pim_enrich.mass_edit_action
-                alias: my_action
-                acl: pim_enrich_product_edit_attributes
-```
-As of 1.6, the `datagrid` entry of the tag is mandatory because a mass edit action linked to no datagrid makes no sense.
-
-Also, a new `operation_group` entry is introduced and is mandatory too. Several mass edit actions with the same operation group will appear on the same "Choose operation" page (the first step in the mass edit process).
-There are two operation groups for now: "mass-edit" and "category-edit", "mass-edit" being the default one.
-
-Now your custom mass action declaration should look like this:
-```
-my_bundle.mass_edit_action.my_action:
-        public: false
-        class: '%my_bundle.mass_edit_action.my_action.class%'
-        tags:
-            -
-                name: pim_enrich.mass_edit_action
-                alias: my_action
-                datagrid: product-grid
-                operation_group: mass-edit
-                acl: pim_enrich_product_edit_attributes
-```
-In this example it is an action for the products grid and it must appear in the default group.
-
-## Product exports configuration format update
+#### Product exports configuration format update
 
 As of 1.6, product export job configurations (raw parameters) have a different format.
 
@@ -360,7 +382,52 @@ We provide doctrine migration to handle this change in your existing data.
 
 TODO: Add links to the docs.akeneo.com regarding this format update.
 
-##  PHP7
+### I wrote a custom Mass Edit Action
+
+The Mass Edit Action are based on Connector classes, the updates of the previous section must be applied before to start this section.
+
+#### update the mass edit actions declaration
+
+In 1.5 and before mass edit actions could be declared like this:
+```
+my_bundle.mass_edit_action.my_action:
+        public: false
+        class: '%my_bundle.mass_edit_action.my_action.class%'
+        tags:
+            -
+                name: pim_enrich.mass_edit_action
+                alias: my_action
+                acl: pim_enrich_product_edit_attributes
+```
+As of 1.6, the `datagrid` entry of the tag is mandatory because a mass edit action linked to no datagrid makes no sense.
+
+Also, a new `operation_group` entry is introduced and is mandatory too. Several mass edit actions with the same operation group will appear on the same "Choose operation" page (the first step in the mass edit process).
+There are two operation groups for now: "mass-edit" and "category-edit", "mass-edit" being the default one.
+
+Now your custom mass action declaration should look like this:
+```
+my_bundle.mass_edit_action.my_action:
+        public: false
+        class: '%my_bundle.mass_edit_action.my_action.class%'
+        tags:
+            -
+                name: pim_enrich.mass_edit_action
+                alias: my_action
+                datagrid: product-grid
+                operation_group: mass-edit
+                acl: pim_enrich_product_edit_attributes
+```
+In this example it is an action for the products grid and it must appear in the default group.
+
+### I wrote a custom Attribute Type
+
+```TODO```
+
+## Known Issues
+
+```TODO```
+
+##  PHP7 TODO: to move?
 
 We continued our effort regarding Akeneo PIM PHP7 support.
 We're happy to announce that PHP7 is now usable in experimental mode for both CLI and Web.
@@ -376,7 +443,7 @@ Your attributes using `text` backend type will now use `hashed` index type suppo
 
 Before the 1.6, the command creates only ascendant indexes, even for `text` backend type causing the non indexing of the too long value without any notice.
 
-## Partially fix BC breaks
+## Partially fix BC breaks TODO: to change?
 
 If you have a standard installation with some custom code inside, the following command allows to update changed services or use statements.
 
