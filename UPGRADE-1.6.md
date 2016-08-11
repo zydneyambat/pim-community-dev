@@ -1,3 +1,33 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [UPGRADE FROM 1.5 to 1.6](#upgrade-from-15-to-16)
+  - [Migrate your standard project](#migrate-your-standard-project)
+  - [ Migrate your custom code](#migrate-your-custom-code)
+    - [Global updates for any projects](#global-updates-for-any-projects)
+      - [Introducing Pim\Component\Catalog\AttributeTypeInterface](#introducing-pim%5Ccomponent%5Ccatalog%5Cattributetypeinterface)
+      - [Update references to moved Pim\Component\Catalog business classes](#update-references-to-moved-pim%5Ccomponent%5Ccatalog-business-classes)
+    - [Updates for projects customizing Import / Export](#updates-for-projects-customizing-import--export)
+      - [Remove the reference to class `Akeneo\Bundle\BatchBundle\Connector\Connector`](#remove-the-reference-to-class-akeneo%5Cbundle%5Cbatchbundle%5Cconnector%5Cconnector)
+      - [Change the definition of Batch Jobs services](#change-the-definition-of-batch-jobs-services)
+      - [Remove the `Akeneo\Component\Batch\Item\AbstractConfigurableStepElement`](#remove-the-akeneo%5Ccomponent%5Cbatch%5Citem%5Cabstractconfigurablestepelement)
+      - [Update your custom Reader, Processor, Writer](#update-your-custom-reader-processor-writer)
+      - [Update translation keys for Job and Step labels](#update-translation-keys-for-job-and-step-labels)
+      - [Update references to the deprecated and removed `TransformBundle`](#update-references-to-the-deprecated-and-removed-transformbundle)
+      - [Update references to the deprecated and removed `BaseConnectorBundle`](#update-references-to-the-deprecated-and-removed-baseconnectorbundle)
+      - [Update references to standardized Reader and Processor services of Connector component](#update-references-to-standardized-reader-and-processor-services-of-connector-component)
+      - [Product exports configuration format update](#product-exports-configuration-format-update)
+    - [Updates for projects adding custom Mass Edit Action](#updates-for-projects-adding-custom-mass-edit-action)
+      - [Update the mass edit actions services](#update-the-mass-edit-actions-services)
+    - [Updates for projects adding custom Attribute Types](#updates-for-projects-adding-custom-attribute-types)
+  - [Known Issues](#known-issues)
+  - [ PHP7 TODO: to move?](#php7-todo-to-move)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+:with_toc_data
+
 # UPGRADE FROM 1.5 to 1.6
 
 > Please perform a backup of your database before proceeding to the migration. You can use tools like [mysqldump](http://dev.mysql.com/doc/refman/5.1/en/mysqldump.html) and [mongodump](http://docs.mongodb.org/manual/reference/program/mongodump/).
