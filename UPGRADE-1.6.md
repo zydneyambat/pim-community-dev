@@ -1,6 +1,14 @@
+Generated using: https://github.com/thlorenz/doctoc
+
+usage:
+
+$> npm install -g doctoc
+
+$> doctoc UPDATE-1.6.md --title '**Table of Contents'
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+**Table of Contents**
 
 - [UPGRADE FROM 1.5 to 1.6](#upgrade-from-15-to-16)
   - [Migrate your standard project](#migrate-your-standard-project)
@@ -26,7 +34,12 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+
 :with_toc_data
+
+:universal_toc
+
+[[_TOC_]]
 
 # UPGRADE FROM 1.5 to 1.6
 
