@@ -1,6 +1,6 @@
 <?php
 
-namespace Pim\Bundle\UserBundle\Entity\Repository;
+namespace Pim\Component\User\Repository;
 
 use Akeneo\Component\StorageUtils\Repository\IdentifiableObjectRepositoryInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
@@ -30,4 +30,13 @@ interface UserRepositoryInterface extends IdentifiableObjectRepositoryInterface,
      * @return UserInterface[]
      */
     public function findByGroupIds(array $groupIds);
+
+    /**
+     * Return the user
+     *
+     * @param string $username
+     *
+     * @return UserInterface
+     */
+    public function findOneByUsername($username);
 }

@@ -101,8 +101,8 @@ class GetProductCommand extends ContainerAwareCommand
      */
     protected function createToken(OutputInterface $output, $username)
     {
-        $userManager = $this->getContainer()->get('oro_user.manager');
-        $user = $userManager->findUserByUsername($username);
+        $userRepository = $this->getContainer()->get('pim_user.repository.user');
+        $user = $userRepository->findOneByUsername($username);
 
         if (null === $user) {
             $output->writeln(sprintf('<error>Username "%s" is unknown<error>', $username));

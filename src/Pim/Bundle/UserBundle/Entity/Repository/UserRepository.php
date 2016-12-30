@@ -3,6 +3,7 @@
 namespace Pim\Bundle\UserBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Pim\Component\User\Repository\UserRepositoryInterface;
 
 /**
  * User repository
@@ -56,5 +57,13 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
             ->select('count(u.id)')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneByUsername($username)
+    {
+        return $this->findOneBy(['username' => $username]);
     }
 }
