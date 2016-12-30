@@ -42,9 +42,14 @@ interface ProductInterface extends
     public function setId($id);
 
     /**
-     * Get the identifier of the product
+     * @param string $identifier
      *
-     * @throws MissingIdentifierException if no identifier could be found
+     * @return ProductInterface
+     */
+    public function setIdentifier($identifier);
+
+    /**
+     * Get the identifier of the product
      *
      * @return ProductValueInterface the identifier of the product
      */

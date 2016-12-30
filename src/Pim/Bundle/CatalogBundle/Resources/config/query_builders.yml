@@ -1,14 +1,15 @@
 parameters:
-    pim_catalog.query.product_query_builder_factory.class:      Pim\Component\Catalog\Query\ProductQueryBuilderFactory
-    pim_catalog.query.product_query_builder.class:              Pim\Component\Catalog\Query\ProductQueryBuilder
-    pim_catalog.query.filter.registry.class:                    Pim\Component\Catalog\Query\Filter\FilterRegistry
-    pim_catalog.query.sorter.registry.class:                    Pim\Component\Catalog\Query\Sorter\SorterRegistry
-    pim_catalog.query.filter.field_dumper.class:                Pim\Bundle\CatalogBundle\Command\ProductQueryHelp\FieldFilterDumper
-    pim_catalog.query.filter.attribute_dumper.class:            Pim\Bundle\CatalogBundle\Command\ProductQueryHelp\AttributeFilterDumper
-    pim_catalog.doctrine.query.filter.category.class:           Pim\Bundle\CatalogBundle\Doctrine\Common\Filter\CategoryFilter
-    pim_catalog.doctrine.query.filter.object_id_resolver.class: Pim\Bundle\CatalogBundle\Doctrine\Common\Filter\ObjectIdResolver
+    pim_catalog.query.product_query_builder_factory.class:        Pim\Component\Catalog\Query\ProductQueryBuilderFactory
+    pim_catalog.query.product_query_builder.class:                Pim\Component\Catalog\Query\ProductQueryBuilder
+    pim_catalog.query.filter.registry.class:                      Pim\Component\Catalog\Query\Filter\FilterRegistry
+    pim_catalog.query.sorter.registry.class:                      Pim\Component\Catalog\Query\Sorter\SorterRegistry
+    pim_catalog.query.filter.field_dumper.class:                  Pim\Bundle\CatalogBundle\Command\ProductQueryHelp\FieldFilterDumper
+    pim_catalog.query.filter.attribute_dumper.class:              Pim\Bundle\CatalogBundle\Command\ProductQueryHelp\AttributeFilterDumper
+    pim_catalog.doctrine.query.filter.category.class:             Pim\Bundle\CatalogBundle\Doctrine\Common\Filter\CategoryFilter
+    pim_catalog.doctrine.query.filter.object_id_resolver.class:   Pim\Bundle\CatalogBundle\Doctrine\Common\Filter\ObjectIdResolver
     pim_catalog.doctrine.query.filter.object_code_resolver.class: Pim\Bundle\CatalogBundle\Doctrine\Common\Filter\ObjectCodeResolver
-    pim_catalog.doctrine.query.filter.dummy.class:              Pim\Bundle\CatalogBundle\Doctrine\Common\Filter\DummyFilter
+    pim_catalog.doctrine.query.filter.dummy.class:                Pim\Bundle\CatalogBundle\Doctrine\Common\Filter\DummyFilter
+    pim_catalog.doctrine.query.filter.product_identifier.class:   Pim\Bundle\CatalogBundle\Doctrine\ORM\Filter\ProductIdentifierFilter
 
 services:
     pim_catalog.query.product_query_builder_factory:
@@ -195,6 +196,14 @@ services:
         class: '%pim_catalog.doctrine.query.filter.product_id.class%'
         arguments:
             - ['id']
+            - ['=', 'IN', 'NOT IN', '!=']
+        tags:
+            - { name: 'pim_catalog.doctrine.query.filter', priority: 30 }
+
+    pim_catalog.doctrine.query.filter.product_identifier:
+        class: '%pim_catalog.doctrine.query.filter.product_identifier.class%'
+        arguments:
+            - ['identifier']
             - ['=', 'IN', 'NOT IN', '!=']
         tags:
             - { name: 'pim_catalog.doctrine.query.filter', priority: 30 }

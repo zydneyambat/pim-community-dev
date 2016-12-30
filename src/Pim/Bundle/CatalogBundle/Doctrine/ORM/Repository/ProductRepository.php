@@ -436,8 +436,7 @@ class ProductRepository extends EntityRepository implements
     {
         $pqb = $this->queryBuilderFactory->create();
         $qb = $pqb->getQueryBuilder();
-        $attribute = $this->getIdentifierAttribute();
-        $pqb->addFilter($attribute->getCode(), Operators::EQUALS, $identifier);
+        $pqb->addFilter('identifier', Operators::EQUALS, $identifier);
         $result = $qb->getQuery()->execute();
 
         if (empty($result)) {

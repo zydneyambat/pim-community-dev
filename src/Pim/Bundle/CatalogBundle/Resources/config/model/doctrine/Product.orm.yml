@@ -9,6 +9,11 @@ Pim\Component\Catalog\Model\Product:
             id: true
             generator:
                 strategy: AUTO
+        identifier:
+            type: string
+            length: 255
+            unique: true
+            nullable: false
         enabled:
             type: boolean
             column: is_enabled
