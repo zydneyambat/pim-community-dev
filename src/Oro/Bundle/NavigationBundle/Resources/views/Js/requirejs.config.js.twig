@@ -4,7 +4,7 @@ require({
             deps: ['routing'],
             init: function(routing) {
                 {% if not app.debug %}
-                routing.setBaseUrl({{ asset('')[:-1]|json_encode|raw }});
+                routing.setBaseUrl("/bundles/");
                 {% endif %}
                 return routing;
             }

@@ -18,9 +18,8 @@ define(
         'pim/field-manager',
         'pim/i18n',
         'pim/user-context',
-        'routing',
         'module',
-        'oro/navigation'
+        'pim/router'
     ],
     function (
         $,
@@ -32,9 +31,8 @@ define(
         FieldManager,
         i18n,
         UserContext,
-        Routing,
         module,
-        Navigation
+        router
     ) {
         return BaseSave.extend({
             updateSuccessMessage: __('pim_enrich.entity.channel.info.update_successful'),

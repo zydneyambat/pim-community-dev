@@ -5,7 +5,6 @@
                 for (var i in b)b[i].toString()==='[object Object]'?m(a[i]||(a[i]={}),b[i]):a[i]=b[i]}
             return r;
         }());
-        {% include 'OroUIBundle::requirejs.config.js.twig' %}
         {% include 'OroNavigationBundle:Js:requirejs.config.js.twig' %}
         {% include 'OroTranslationBundle::requirejs.config.js.twig' %}
         require = require.c;
@@ -17,7 +16,6 @@
         {{ get_requirejs_config() }}
     </script>
     <script type="text/javascript">
-        {% include 'OroUIBundle::requirejs.config.js.twig' %}
         {% include 'OroNavigationBundle:Js:requirejs.config.js.twig' %}
         {% include 'OroTranslationBundle::requirejs.config.js.twig' %}
     </script>

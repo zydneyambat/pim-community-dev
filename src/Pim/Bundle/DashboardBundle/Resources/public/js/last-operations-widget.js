@@ -1,3 +1,5 @@
+'use strict';
+
 define(
     [
         'jquery',
@@ -8,7 +10,6 @@ define(
         'text!pim/dashboard/template/view-all-btn'
     ],
     function ($, _, router, AbstractWidget, template, viewAllBtnTemplate) {
-        'use strict';
 
         return AbstractWidget.extend({
             labelClasses: {
@@ -49,12 +50,11 @@ define(
                 switch (operationType) {
                     case 'import':
                     case 'export':
-                        route = 'pim_importexport_' + operationType + '_execution_show'
+                        route = 'pim_importexport_' + operationType + '_execution_show';
                         routeParams = { id: $(event.currentTarget).data('id') };
-                        );
                         break;
                     default:
-                        route = 'pim_enrich_job_tracker_show'
+                        route = 'pim_enrich_job_tracker_show';
                         routeParams = { id: $(event.currentTarget).data('id') };
                         break;
                 }

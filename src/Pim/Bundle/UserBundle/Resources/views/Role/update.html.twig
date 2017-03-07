@@ -5,7 +5,6 @@
 {% oro_title_set({params : { "%role%": form.vars.value.label } }) %}
 
 {% block head_script %}
-    {{ parent() }}
     <script type="text/javascript">
         require(
             ['jquery'],
@@ -65,12 +64,9 @@
                 });
             }
         );
+        require('pim/page-title').set({'role': '{{ form.vars.value.label }}'});
     </script>
 {% endblock %}
-
-<script type="text/javascript">
-    require('pim/page-title').set({'role': '{{ form.vars.value.label }}'});
-</script>
 
 {% set entityId = form.vars.value.id %}
 

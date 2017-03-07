@@ -17,8 +17,7 @@ define(
         'pim/field-manager',
         'pim/i18n',
         'pim/user-context',
-        'routing',
-        'oro/navigation'
+        'pim/router'
     ],
     function (
         $,
@@ -29,8 +28,7 @@ define(
         FieldManager,
         i18n,
         UserContext,
-        Routing,
-        Navigation
+        router
     ) {
         return BaseSave.extend({
             updateSuccessMessage: __('pim_enrich.entity.job_instance.info.update_successful'),
@@ -51,11 +49,9 @@ define(
                 return this.getJobInstanceSaver()
                     .save(jobInstance.code, jobInstance)
                     .then(function (data) {
-                        Navigation.getInstance().setLocation(
-                            Routing.generate(
-                                this.config.redirectPath,
-                                {code: jobInstance.code}
-                            )
+                        router.redirectToRoute(
+                            this.config.redirectPath,
+                            {code: jobInstance.code}
                         );
                         this.postSave();
 

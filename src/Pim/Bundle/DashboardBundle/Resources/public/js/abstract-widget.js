@@ -1,20 +1,14 @@
 define(
-<<<<<<< HEAD
     [
         'jquery',
         'underscore',
         'oro/translator',
         'backbone',
-        'routing',
+        'pim/router',
         'oro/loading-mask',
-        'oro/mediator',
-        'oro/navigation'
+        'oro/mediator'
     ],
-    function ($, _, __, Backbone, Routing, LoadingMask, mediator, Navigation) {
-=======
-    ['jquery', 'underscore', 'backbone', 'pim/router', 'oro/loading-mask'],
-    function ($, _, Backbone, router, LoadingMask) {
->>>>>>> 5ebd467... New hash nav
+    function ($, _, __, Backbone, router, LoadingMask, mediator) {
         'use strict';
 
         return Backbone.View.extend({
@@ -64,11 +58,7 @@ define(
             },
 
             loadData: function () {
-<<<<<<< HEAD
-                if (!this.isDashboardPage()) {
-=======
                 if (!this.needsData) {
->>>>>>> 5ebd467... New hash nav
                     this.loadTimeout = null;
 
                     return;

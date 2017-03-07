@@ -1,7 +1,4 @@
 extensions:
-    akeneo-text-filter:
-        module: pim/filter/text
-
     akeneo-product-family-filter:
         module: pim/filter/product/family
         config:

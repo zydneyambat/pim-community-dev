@@ -13,23 +13,23 @@ define(['jquery', 'underscore', 'oro/translator', 'oro/app', 'oro/mediator', 'or
                 messenger.setup();
             }
 
-            $.get(el.attr('href'), function (data) {
-                el.closest('.AknFieldContainer').find('.AknTextField').text(data);
-                var messageText = el.attr('data-message') + ' <strong>' + data + '</strong>';
-                messenger.notificationFlashMessage('success', messageText);
-            });
+            // $.get(el.attr('href'), function (data) {
+            //     el.closest('.AknFieldContainer').find('.AknTextField').text(data);
+            //     var messageText = el.attr('data-message') + ' <strong>' + data + '</strong>';
+            //     messenger.notificationFlashMessage('success', messageText);
+            // });
 
-            $(document).on('click', '#btn-apigen', function () {
-                var el = $(this);
+            // $(document).on('click', '#btn-apigen', function () {
+            //     var el = $(this);
 
-                $.get(el.attr('href'), function (data) {
-                    el.prev().text(data);
-                    var messageText = el.attr('data-message') + ' <strong>' + data + '</strong>';
-                    messenger.notificationFlashMessage('success', messageText);
-                });
+            //     $.get(el.attr('href'), function (data) {
+            //         el.prev().text(data);
+            //         var messageText = el.attr('data-message') + ' <strong>' + data + '</strong>';
+            //         messenger.notificationFlashMessage('success', messageText);
+            //     });
 
-                return false;
-            });
+            //     return false;
+            // });
 
             /**
              * Process flash messages stored in queue or storage

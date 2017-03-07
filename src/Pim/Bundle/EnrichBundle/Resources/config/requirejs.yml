@@ -64,9 +64,6 @@ config:
             url: pim_enrich_job_instance_rest_import_put
         pim/saver/job-instance-export:
             url: pim_enrich_job_instance_rest_export_put
-                get:    pim_enrich_product_rest_get
-                post:   pim_enrich_product_rest_post
-                remove: pim_enrich_product_rest_remove
 
         pim/controller-registry:
             defaultController: pim/controller/template
@@ -313,7 +310,7 @@ config:
         pim/channel-edit-form/properties/general:               pimenrich/js/channel/form/properties/general
         pim/channel-edit-form/properties/general/currencies:    pimenrich/js/channel/form/properties/general/currencies
         pim/channel-edit-form/properties/general/locales:       pimenrich/js/channel/form/properties/general/locales
-        pim/channel-edit-form/properties/general/category:      pimenrich/js/channel/form/properties/general/category
+        pim/channel-edit-form/properties/general/category:      pimenrich/js/channel/form/properties/general/category-tree
         pim/channel-edit-form/properties/conversion-unit:       pimenrich/js/channel/form/properties/conversion-unit
 
         # Variant group
@@ -353,7 +350,6 @@ config:
         pim/product-edit-form/status-switcher:             pimenrich/js/product/form/status-switcher
         pim/product-edit-form/download-pdf:                pimenrich/js/product/form/download-pdf
         pim/product-edit-form/attributes:                  pimenrich/js/product/form/attributes
-        pim/product-edit-form/back-to-grid:                pimenrich/js/product/form/back-to-grid
 
         # Exports
         pim/job/product/edit/content:                                pimenrich/js/job/product/edit/content
@@ -366,7 +362,7 @@ config:
         pim/job/product/edit/content/data:                           pimenrich/js/job/product/edit/content/data
         pim/job/product/edit/content/data/add-filter:                pimenrich/js/job/product/edit/content/data/add-filter
         pim/job/product/edit/content/data/default-attribute-filters: pimenrich/js/job/product/edit/content/data/default-attribute-filters
-        pim/job/common/edit/content/data/help:                       pimenrich/js/job/common/edit/content/data/help
+        pim/job/common/edit/content/data/help:                       pimenrich/js/job/product/edit/content/data/help
         pim/job/product/edit/field/date-format:                      pimenrich/js/job/product/edit/field/date-format
         pim/job/common/edit/field/decimal-separator:                 pimenrich/js/job/common/edit/field/decimal-separator
         pim/job/common/edit/properties:                              pimenrich/js/job/common/edit/properties
@@ -385,8 +381,6 @@ config:
 
         # Filters
         pim/filter/filter:                     pimenrich/js/filter/filter
-        pim/filter/text:                       pimenrich/js/filter/text
-        pim/filter/simpleselect:               pimenrich/js/filter/simpleselect
         pim/filter/product/family:             pimenrich/js/filter/product/family
         pim/filter/product/enabled:            pimenrich/js/filter/product/enabled
         pim/filter/product/updated:            pimenrich/js/filter/product/updated
@@ -420,7 +414,6 @@ config:
         pim/attribute-option/create:        pimenrich/js/attribute-option/create
 
         # Variant group
-        pim/variant-group-edit-form/products:               pimenrich/js/variant-group/form/products
         pim/variant-group-edit-form/delete:                 pimenrich/js/variant-group/form/delete
         pim/variant-group-edit-form/no-attribute:           pimenrich/js/variant-group/form/no-attribute
         pim/variant-group-edit-form/properties/general:     pimenrich/js/variant-group/form/properties/general
@@ -484,7 +477,6 @@ config:
 
         # Grid view selector
         pim/grid/view-selector/selector: pimenrich/js/grid/view-selector
-        pim/grid/view-selector/footer: pimenrich/js/grid/view-selector-footer
         pim/grid/view-selector/line: pimenrich/js/grid/view-selector-line
         pim/grid/view-selector/create-view: pimenrich/js/grid/view-selector-create-view
         pim/grid/view-selector/save-view: pimenrich/js/grid/view-selector-save-view
@@ -588,12 +580,9 @@ config:
         pim/template/export/common/edit/validation:                             pimenrich/templates/export/common/edit/validation.html
         pim/template/export/common/edit/launch:                                 pimenrich/templates/export/common/edit/launch.html
         pim/template/export/common/edit/upload:                                 pimenrich/templates/export/common/edit/upload.html
-        pim/template/export/common/edit/upload-launch:                          pimenrich/templates/export/common/edit/upload-launch.html
 
         # Filters
         pim/template/filter/filter:                     pimenrich/templates/filter/filter.html
-        pim/template/filter/text:                       pimenrich/templates/filter/text.html
-        pim/template/filter/simpleselect:               pimenrich/templates/filter/simpleselect.html
         pim/template/filter/product/family:             pimenrich/templates/filter/product/family.html
         pim/template/filter/product/enabled:            pimenrich/templates/filter/product/enabled.html
         pim/template/filter/product/updated:            pimenrich/templates/filter/product/updated.html
@@ -612,12 +601,8 @@ config:
 
         # Grid view selector
         pim/template/grid/view-selector: pimenrich/templates/grid/view-selector.html
-        pim/template/grid/view-selector/footer: pimenrich/templates/grid/view-selector-footer.html
-        pim/template/grid/view-selector/footer/create: pimenrich/templates/grid/view-selector-footer-create.html
-        pim/template/grid/view-selector/footer/create-dropdown-item: pimenrich/templates/grid/view-selector-footer-create-dropdown-item.html
         pim/template/grid/view-selector/create-view-label-input: pimenrich/templates/grid/view-selector-create-view-label-input.html
         pim/template/grid/view-selector/line: pimenrich/templates/grid/view-selector-line.html
-        pim/template/grid/view-selector/line/remove: pimenrich/templates/grid/view-selector-line-remove.html
         pim/template/grid/view-selector/create-view: pimenrich/templates/grid/view-selector-create-view.html
         pim/template/grid/view-selector/save-view: pimenrich/templates/grid/view-selector-save-view.html
         pim/template/grid/view-selector/remove-view: pimenrich/templates/grid/view-selector-remove-view.html

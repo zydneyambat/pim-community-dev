@@ -12,7 +12,7 @@ define(
         'oro/translator',
         'pim/form',
         'text!pim/template/form/delete',
-        'oro/navigation',
+        'pim/router',
         'oro/loading-mask',
         'routing',
         'pim/dialog'
@@ -22,7 +22,7 @@ define(
         __,
         BaseForm,
         template,
-        Navigation,
+        router,
         LoadingMask,
         Routing,
         Dialog
@@ -87,20 +87,18 @@ define(
             doDelete: function () {
                 var loadingMask = new LoadingMask();
                 loadingMask.render().$el.appendTo(this.getRoot().$el).show();
-                var navigation = Navigation.getInstance();
 
                 this.remover.remove(this.getIdentifier())
                     .done(function () {
-                        navigation.addFlashMessage('success', __(this.config.trans.success));
-                        navigation.setLocation(Routing.generate(this.config.redirect));
+                        messenger.notificationFlashMessage('success', __(this.config.trans.success));
+                        router.redirectToRoute(this.config.redirect);
                     }.bind(this))
                     .fail(function (xhr) {
                         var message = xhr.responseJSON && xhr.responseJSON.message ?
                             xhr.responseJSON.message :
                             __(this.config.trans.failed);
 
-                        navigation.addFlashMessage('error', message);
-                        navigation.afterRequest();
+                        messenger.notificationFlashMessage('error', message);
                     })
                     .always(function () {
                         loadingMask.hide().$el.remove();

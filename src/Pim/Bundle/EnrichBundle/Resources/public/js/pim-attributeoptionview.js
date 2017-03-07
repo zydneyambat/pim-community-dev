@@ -10,8 +10,7 @@ define(
         'pim/dialog',
         'text!pim/template/attribute-option/index',
         'text!pim/template/attribute-option/edit',
-        'text!pim/template/attribute-option/show',
-        'jquery-ui'
+        'text!pim/template/attribute-option/show'
     ],
     function (
         $,
