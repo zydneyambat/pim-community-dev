@@ -11,11 +11,9 @@ define(
     [
       'pim/form',
       'text!pim/template/product/product-media',
-      'pim/user-context',
-      'pim/i18n',
       'pim/media-url-generator',
     ],
-    function (BaseForm, template, UserContext, i18n, mediaUrlGenerator) {
+    function (BaseForm, template, mediaUrlGenerator) {
         return BaseForm.extend({
             template: _.template(template),
 
