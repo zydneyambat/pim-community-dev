@@ -26,6 +26,12 @@ extensions:
         targetZone: title
         position: 100
 
+    pim-product-edit-form-product-media:
+        module: pim/product-edit-form/product-media
+        parent: pim-product-edit-form
+        targetZone: title
+        position: 90
+
     pim-product-edit-form-back-to-grid:
         module: pim/form/common/back-to-grid
         parent: pim-product-edit-form

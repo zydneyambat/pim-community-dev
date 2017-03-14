@@ -317,6 +317,7 @@ config:
         pim/product-edit-form/meta/groups:                 pimenrich/js/product/form/meta/groups
         pim/product-edit-form/status-switcher:             pimenrich/js/product/form/status-switcher
         pim/product-edit-form/download-pdf:                pimenrich/js/product/form/download-pdf
+        pim/product-edit-form/product-media:                pimenrich/js/product/form/product-media
         pim/product-edit-form/attributes:                  pimenrich/js/product/form/attributes
         pim/product-edit-form/back-to-grid:                pimenrich/js/product/form/back-to-grid
 
@@ -512,6 +513,7 @@ config:
         pim/template/product/sequential-edit:                pimenrich/templates/product/sequential-edit.html
         pim/template/product/status-switcher:                pimenrich/templates/product/status-switcher.html
         pim/template/product/download-pdf:                   pimenrich/templates/product/download-pdf.html
+        pim/template/product/product-media:                   pimenrich/templates/product/product-media.html
         pim/template/product/meta/family:                    pimenrich/templates/product/meta/family.html
         pim/template/product/meta/change-family-modal:       pimenrich/templates/product/meta/change-family-modal.html
         pim/template/product/meta/groups:                    pimenrich/templates/product/meta/groups.html
