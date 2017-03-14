@@ -23,8 +23,8 @@ define(
              * When the product gets updated, re-render the media preview
              */
             configure: function () {
-                var root = this.getRoot()
-                var event = 'pim_enrich:form:entity:post_update'
+                var root = this.getRoot();
+                var event = 'pim_enrich:form:entity:post_update';
 
                 this.listenTo(root, event, this.render);
                 return BaseForm.prototype.configure.apply(this, arguments);
@@ -34,8 +34,8 @@ define(
              * {@inheritdoc}
              */
             render: function () {
-                var mediaUrl = this.getMediaUrl()
-                var generatedUrl = mediaUrlGenerator.getMediaShowUrl(mediaUrl, 'thumbnail_small')
+                var mediaUrl = this.getMediaUrl();
+                var generatedUrl = mediaUrlGenerator.getMediaShowUrl(mediaUrl, 'thumbnail_small');
 
                 this.$el.html(this.template({
                   generatedUrl: generatedUrl
@@ -51,7 +51,7 @@ define(
              */
             getMediaUrl: function () {
                 var data = this.getFormData();
-                var picture = data.values.picture
+                var picture = data.values.picture;
                 if (picture.length) return picture[0].data.filePath
             }
         });
