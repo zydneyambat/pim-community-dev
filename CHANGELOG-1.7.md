@@ -8,6 +8,7 @@
 - PIM-6242: Fix UI glitch on TWA completeness filter search field
 - PIM-6239: Translate scope with catalog locale
 - GITHUB-3435: Sort order products datagrid `Manage filter` options
+- PIM-6254: Fix pagination on the API when filters are applied
 
 # 1.7.0 (2017-03-14)
 

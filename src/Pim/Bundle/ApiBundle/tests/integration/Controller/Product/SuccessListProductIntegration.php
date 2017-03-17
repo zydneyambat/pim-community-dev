@@ -3,7 +3,6 @@
 namespace Pim\Bundle\ApiBundle\tests\integration\Controller\Product;
 
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\HttpFoundation\Response;
 
 class SuccessListProductIntegration extends AbstractProductTestCase
 {
@@ -129,7 +128,7 @@ class SuccessListProductIntegration extends AbstractProductTestCase
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     public function testDefaultPaginationFirstPageListProductsWithCount()
@@ -157,7 +156,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     public function testDefaultPaginationLastPageListProductsWithCount()
@@ -186,7 +185,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     /**
@@ -293,7 +292,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     /**
@@ -409,7 +408,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     /**
@@ -514,7 +513,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     /**
@@ -577,7 +576,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     /**
@@ -704,7 +703,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     public function testOffsetPaginationListProductsWithFilteredAttributes()
@@ -824,7 +823,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     public function testOffsetPaginationListProductsWithChannelLocalesAndAttributesParams()
@@ -933,7 +932,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     public function testTheSecondPageOfTheListOfProductsWithOffsetPaginationWithoutCount()
@@ -987,7 +986,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     public function testOutOfRangeProductsList()
@@ -1010,7 +1009,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     public function testOffsetPaginationListProductsWithSearch()
@@ -1067,7 +1066,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     public function testOffsetPaginationListProductsWithMultiplePQBFilters()
@@ -1090,7 +1089,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     public function testListProductsWithCompletenessPQBFilters()
@@ -1113,7 +1112,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
     /**
      * Get all products, whatever locale, scope, category with a search after pagination
@@ -1143,7 +1142,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     public function testSearchAfterPaginationListProductsWithNextLink()
@@ -1174,7 +1173,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     public function testSearchAfterPaginationLastPageOfTheListOfProducts()
@@ -1201,29 +1200,7 @@ JSON;
 }
 JSON;
 
-        $this->assertResponse($client->getResponse(), $expected);
-    }
-
-    /**
-     * @param Response $response
-     * @param array    $expected
-     */
-    private function assertResponse(Response $response, $expected)
-    {
-        $result = json_decode($response->getContent(), true);
-        $expected = json_decode($expected, true);
-
-        foreach ($result['_embedded']['items'] as $index => $product) {
-            $product = $this->sanitizeDateFields($product);
-            $result['_embedded']['items'][$index] = $this->sanitizeMediaAttributeData($product);
-
-            if (isset($expected['_embedded']['items'][$index])) {
-                $expected['_embedded']['items'][$index] = $this->sanitizeDateFields($expected['_embedded']['items'][$index]);
-                $expected['_embedded']['items'][$index] = $this->sanitizeMediaAttributeData($expected['_embedded']['items'][$index]);
-            }
-        }
-
-        $this->assertEquals($expected, $result);
+        $this->assertListResponse($client->getResponse(), $expected);
     }
 
     /**
