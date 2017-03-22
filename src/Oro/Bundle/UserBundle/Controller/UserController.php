@@ -39,11 +39,7 @@ class UserController extends Controller
      */
     public function updateProfileAction()
     {
-        return $this->update(
-            $this->getUser(),
-            'oro_user_profile_update',
-            ['route' => 'oro_user_profile_view']
-        );
+        return $this->update($this->getUser(), 'oro_user_profile_update');
     }
 
     /**
@@ -110,11 +106,10 @@ class UserController extends Controller
     /**
      * @param mixed  $user
      * @param string $updateRoute
-     * @param array  $viewRoute
      *
      * @return array
      */
-    protected function update($user, $updateRoute = '', $viewRoute = [])
+    protected function update($user, $updateRoute = '')
     {
         if (!$user instanceof UserInterface) {
             $user = $this->get('pim_user.repository.user')->find($user);
@@ -134,7 +129,7 @@ class UserController extends Controller
             $this->get('session')->remove('dataLocale');
 
             return new RedirectResponse(
-                $this->get('router')->generate('oro_user_update', ['id' => $user->getId()])
+                $this->get('router')->generate('oro_user_profile_update', ['id' => $user->getId()])
             );
         }
 
