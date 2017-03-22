@@ -18,8 +18,9 @@
 - GITHUB-3435: Sort order products datagrid `Manage filter` options
 - PIM-6250: Fix attribute export.
 - GITHUB-5538: User without permissions access to import/export jobs through `Process tracker`
-- PIM-6258: Fix permissions issue for listing locales, associations, families to display correctly the pef
+- PIM-6258: Fix permissions issue for listing locales, associations, families to display correctly the product edit form
 - PIM-6253: Add missing permissions on entities of the API
+- PIM-6264: Remove the error message when an user edits its account
 - PIM-6252: Fix Summernote (WYSIWYG) style
 - PIM-6249: Correctly load more results from select2 when needed in the View Selector
 
