@@ -716,31 +716,15 @@ class ProductController
         array $queryParameters,
         array $normalizerOptions
     ) {
-        $encryptedId = isset($queryParameters['search_after']) ? $queryParameters['search_after'] : null;
-        $id = null !== $encryptedId ? $this->primaryKeyEncrypter->decrypt($encryptedId) : null;
+        $products = $pqb->getProductsSearchAfter($queryParameters['limit'], $queryParameters['search_after']);
 
-        $productCursor = $this->productRepository->searchAfterIdentifier($pqb, $queryParameters['limit'], $id);
-
-        // we have to iterate to get the last element.
-        // An element can be false because of a bug in the cursor
-        // TODO : remove with TIP-613
-        $products = [];
-        foreach ($productCursor as $product) {
-            if (false !== $product) {
-                $products[] = $product;
-            }
-        }
-
-        $lastProduct = end($products);
-        $nextEncryptedId = false !== $lastProduct ? $this->primaryKeyEncrypter->encrypt($lastProduct->getId()) : null;
-
-        reset($products);
-
+        $previous = $pqb->getPreviousLink($queryParameters['limit'], $queryParameters['search_after']);
         $parameters = [
             'query_parameters'         => $queryParameters,
             'search_after' => [
-                'self' => $encryptedId,
-                'next' => $nextEncryptedId,
+                'self'     => $queryParameters['search_after'],
+                'next'     => end($products)->getIdentifier(),
+                'previous' => $previous,
             ],
             'list_route_name'          => 'pim_api_product_list',
             'item_route_name'          => 'pim_api_product_get',

@@ -99,6 +99,50 @@ class ProductQueryBuilder implements ProductQueryBuilderInterface
         return new Results($this->entityManager, $this->searchEngine, $this->getQueryBuilder()->getQuery());
     }
 
+    public function getProductsSearchAfter($limit, $searchAfter = null)
+    {
+        $esQuery['size'] = $limit;
+        $esQuery['sort'] = ['_uid' => 'asc'];
+
+        if (null !== $searchAfter) {
+            $esQuery['search_after'] = ['pim_catalog_product#' . $searchAfter];
+        }
+
+        $response = $this->searchEngine->search('pim_catalog_product', $esQuery);
+
+        $identifiers = [];
+        foreach ($response['hits']['hits'] as $hit) {
+            $identifiers[] = $hit['_source']['identifier'];
+        }
+
+        if (empty($identifiers)) {
+            return [];
+        }
+
+        $qb = $this->getInternalQueryBuilder();
+        $qb->where('p.identifier IN (:identifiers)');
+        $qb->setParameter('identifiers', $identifiers);
+
+        return $qb->getQuery()->execute();
+    }
+
+    // tmp, remove that
+    public function getPreviousLink($limit, $searchAfter)
+    {
+        $esQuery['size'] = $limit;
+        $esQuery['sort'] = ['_uid' => 'desc'];
+        $esQuery['search_after'] = ['pim_catalog_product#' . $searchAfter];
+
+        $response = $this->searchEngine->search('pim_catalog_product', $esQuery);
+
+        $hits = $response['hits']['hits'];
+        if (empty($hits) || count($hits) < $limit) {
+            return null;
+        }
+
+        return end($hits)['_source']['identifier'];
+    }
+
     /**
      * {@inheritdoc}
      */
