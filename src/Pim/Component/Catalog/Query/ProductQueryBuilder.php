@@ -143,6 +143,7 @@ class ProductQueryBuilder implements ProductQueryBuilderInterface
         }
 
         if (null === $filter) {
+            return $this;
             throw new UnsupportedFilterException(
                 sprintf('Filter on property "%s" is not supported or does not support operator "%s"', $field, $operator)
             );
@@ -181,6 +182,7 @@ class ProductQueryBuilder implements ProductQueryBuilderInterface
         }
 
         if (null === $sorter) {
+            return $this;
             throw new \LogicException(
                 sprintf('Sorter on field "%s" is not supported', $field)
             );
