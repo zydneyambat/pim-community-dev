@@ -21,16 +21,16 @@ services:
                     route: pim_enrich_product_index
                     label: pim_dashboard.link.label.product
                     image: widget_links_products.png
-                -
-                    acl: pim_enrich_family_index
-                    route: pim_enrich_family_index
-                    label: pim_dashboard.link.label.family
-                    image: widget_links_families.png
-                -
-                    acl: pim_enrich_attribute_index
-                    route: pim_enrich_attribute_index
-                    label: pim_dashboard.link.label.attribute
-                    image: widget_links_attributes.png
+#                -
+#                    acl: pim_enrich_family_index
+#                    route: pim_enrich_family_index
+#                    label: pim_dashboard.link.label.family
+#                    image: widget_links_families.png
+#                -
+#                    acl: pim_enrich_attribute_index
+#                    route: pim_enrich_attribute_index
+#                    label: pim_dashboard.link.label.attribute
+#                    image: widget_links_attributes.png
                 -
                     acl: pim_enrich_product_category_list
                     route: pim_enrich_categorytree_index

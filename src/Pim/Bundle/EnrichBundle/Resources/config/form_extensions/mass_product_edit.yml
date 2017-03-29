@@ -20,20 +20,20 @@ extensions:
         targetZone: sidebar
         position: 100
 
-    pim-mass-product-edit-form-add-attribute:
-        module: pim/common/add-attribute
-        parent: pim-mass-product-edit-form-attributes
-        targetZone: other-actions
-        position: 90
-        config:
-            select2:
-                placeholder: pim_enrich.form.product.mass_edit.select_attributes
-                buttonTitle: pim_enrich.form.product.mass_edit.select
-                title:       pim_enrich.form.product.mass_edit.select
-                emptyText:   pim_enrich.form.product.mass_edit.select
-            searchParameters:
-                options:
-                    exclude_unique: true
+#    pim-mass-product-edit-form-add-attribute:
+#        module: pim/common/add-attribute
+#        parent: pim-mass-product-edit-form-attributes
+#        targetZone: other-actions
+#        position: 90
+#        config:
+#            select2:
+#                placeholder: pim_enrich.form.product.mass_edit.select_attributes
+#                buttonTitle: pim_enrich.form.product.mass_edit.select
+#                title:       pim_enrich.form.product.mass_edit.select
+#                emptyText:   pim_enrich.form.product.mass_edit.select
+#            searchParameters:
+#                options:
+#                    exclude_unique: true
 
     pim-mass-product-edit-form-validation:
         module: pim/product-edit-form/attributes/validation

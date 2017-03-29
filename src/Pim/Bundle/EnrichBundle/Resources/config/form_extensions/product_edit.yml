@@ -145,12 +145,12 @@ extensions:
         aclResourceId: pim_enrich_product_categories_view
         position: 100
 
-    pim-product-edit-form-associations:
-        module: pim/product-edit-form/associations
-        parent: pim-product-edit-form-form-tabs
-        targetZone: container
-        aclResourceId: pim_enrich_associations_view
-        position: 110
+#    pim-product-edit-form-associations:
+#        module: pim/product-edit-form/associations
+#        parent: pim-product-edit-form-form-tabs
+#        targetZone: container
+#        aclResourceId: pim_enrich_associations_view
+#        position: 110
 
     pim-product-edit-form-panels:
         module: pim/product-edit-form/panel/panels
@@ -164,12 +164,12 @@ extensions:
         targetZone: sidebar
         position: 100
 
-    pim-product-edit-form-add-attribute:
-        module: pim/common/add-attribute
-        parent: pim-product-edit-form-attributes
-        targetZone: other-actions
-        aclResourceId: pim_enrich_product_add_attribute
-        position: 90
+#    pim-product-edit-form-add-attribute:
+#        module: pim/common/add-attribute
+#        parent: pim-product-edit-form-attributes
+#        targetZone: other-actions
+#        aclResourceId: pim_enrich_product_add_attribute
+#        position: 90
 
     pim-product-edit-form-copy:
         module: pim/form/common/attributes/copy
@@ -195,11 +195,11 @@ extensions:
         targetZone: header
         position: 100
 
-    pim-product-edit-form-variant-group:
-        module: pim/product-edit-form/attributes/variant-group
-        parent: pim-product-edit-form-attributes
-        targetZone: self
-        position: 100
+#    pim-product-edit-form-variant-group:
+#        module: pim/product-edit-form/attributes/variant-group
+#        parent: pim-product-edit-form-attributes
+#        targetZone: self
+#        position: 100
 
     pim-product-edit-form-locale-specific:
         module: pim/product-edit-form/attributes/locale-specific

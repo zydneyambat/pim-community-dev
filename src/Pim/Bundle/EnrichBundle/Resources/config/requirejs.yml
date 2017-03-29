@@ -300,7 +300,7 @@ config:
         pim/product-edit-form/attributes/completeness:     pimenrich/js/product/form/attributes/completeness
         pim/product-edit-form/attributes/localizable:      pimenrich/js/product/form/attributes/localizable
         pim/product-edit-form/categories:                  pimenrich/js/product/form/categories
-        pim/product-edit-form/associations:                pimenrich/js/product/form/associations
+#        pim/product-edit-form/associations:                pimenrich/js/product/form/associations
         pim/product-edit-form/panel/panels:                pimenrich/js/product/form/panel/panels
         pim/product-edit-form/panel/selector:              pimenrich/js/product/form/panel/selector
         pim/product-edit-form/locale-switcher:             pimenrich/js/product/form/locale-switcher

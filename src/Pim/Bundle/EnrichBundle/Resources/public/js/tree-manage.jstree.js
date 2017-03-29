@@ -111,10 +111,10 @@ define(
                 }
             };
             if ($el.attr('data-editable')) {
-                this.config.plugins.push('dnd');
+                // this.config.plugins.push('dnd');
             }
             if ($el.attr('data-creatable')) {
-                this.config.plugins.push('contextmenu');
+                // this.config.plugins.push('contextmenu');
             }
             this.init = function () {
                 $el.jstree(this.config).bind('move_node.jstree', function (e, data) {

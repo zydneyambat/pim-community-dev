@@ -15,13 +15,13 @@
                     {{ 'category.suggest selection'|trans }}
                 {% endif %}
                 {% if resource_granted(acl ~ '_category_create') %}
-                    <br/>
-                    {{ 'category.or'|trans }}
-                    <br/>
-                    <a class="AknButton AknButton--withIcon AknButton--apply" href="{{ path(route ~ '_categorytree_create') }}">
-                        <i class="AknButton-icon icon-plus"></i>
-                        {{ 'category.create new'|trans }}
-                    </a>
+                    {#<br/>#}
+                    {#{{ 'category.or'|trans }}#}
+                    {#<br/>#}
+                    {#<a class="AknButton AknButton--withIcon AknButton--apply" href="{{ path(route ~ '_categorytree_create') }}">#}
+                        {#<i class="AknButton-icon icon-plus"></i>#}
+                        {#{{ 'category.create new'|trans }}#}
+                    {#</a>#}
                 {% endif %}
             </div>
         </div>
