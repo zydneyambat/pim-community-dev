@@ -202,25 +202,24 @@ class CompletenessGenerator implements CompletenessGeneratorInterface
         $bulkCounter = 0;
 
         foreach ($products as $product) {
+            $bulkedCompletenesses = array_merge(
+                $bulkedCompletenesses,
+                $product->getCompletenesses()->toArray()
+            );
+            $product->getCompletenesses()->clear();
+
             if (self::BULK_SIZE === $bulkCounter) {
                 $this->completenessRemover->removeAll($bulkedCompletenesses);
-                //TODO: index $bulkedProducts
                 $bulkedCompletenesses = [];
                 $bulkedProducts = [];
                 $bulkCounter = 0;
             }
             else {
                 $bulkedProducts[] = $product;
-                $bulkedCompletenesses = array_merge(
-                    $bulkedCompletenesses,
-                    $product->getCompletenesses()->toArray()
-                );
-                $product->getCompletenesses()->clear();
                 $bulkCounter++;
             }
         }
 
         $this->completenessRemover->removeAll($bulkedCompletenesses);
-        //TODO: index $bulkedProducts
     }
 }

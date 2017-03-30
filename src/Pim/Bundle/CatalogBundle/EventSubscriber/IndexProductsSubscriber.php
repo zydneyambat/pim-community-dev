@@ -5,6 +5,7 @@ namespace Pim\Bundle\CatalogBundle\EventSubscriber;
 use Akeneo\Bundle\ElasticsearchBundle\Client;
 use Akeneo\Component\StorageUtils\StorageEvents;
 use Pim\Bundle\CatalogBundle\Elasticsearch\ProductIndexer;
+use Pim\Component\Catalog\Model\CompletenessInterface;
 use Pim\Component\Catalog\Model\ProductInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -41,6 +42,7 @@ class IndexProductsSubscriber implements EventSubscriberInterface
         return [
             StorageEvents::POST_SAVE     => 'indexProduct',
             StorageEvents::POST_SAVE_ALL => 'bulkIndexProducts',
+            StorageEvents::POST_REMOVE_ALL => 'bulkIndexProductsOnCompletenessesRemoval',
         ];
     }
 
@@ -77,6 +79,33 @@ class IndexProductsSubscriber implements EventSubscriberInterface
 
         if (!current($products) instanceof ProductInterface) {
             return;
+        }
+
+        $this->indexer->indexAll($products);
+    }
+
+    /**
+     * Index several products at a time, when the completenesses have been removed.
+     * See {@link Pim\Component\Catalog\Completeness\CompletenessGeneratorInterface}
+     *
+     * @param GenericEvent $event
+     */
+    public function bulkIndexProductsOnCompletenessesRemoval(GenericEvent $event)
+    {
+        $completenesses = $event->getSubject();
+        if (!is_array($completenesses)) {
+            return;
+        }
+
+        if (!current($completenesses) instanceof CompletenessInterface) {
+            return;
+        }
+
+        $products = [];
+        foreach ($completenesses as $completeness) {
+            if (!in_array($completeness->getProduct(), $products)) {
+                $products[] = $completeness->getProduct();
+            }
         }
 
         $this->indexer->indexAll($products);
