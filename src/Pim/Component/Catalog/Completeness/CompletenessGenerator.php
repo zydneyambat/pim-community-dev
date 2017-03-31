@@ -105,7 +105,7 @@ class CompletenessGenerator implements CompletenessGeneratorInterface
         $familyFilter = ['field' => 'family', 'operator' => Operators::IN_LIST, 'value' => [$family->getCode()]];
         $products = $this->createProductQueryBuilder(null, null, [$familyFilter])->execute();
 
-        $this->bulkRemoveCompletenessesAndIndexProducts($products);
+        $this->bulkRemoveCompletenesses($products);
     }
 
     /**
@@ -115,7 +115,7 @@ class CompletenessGenerator implements CompletenessGeneratorInterface
     {
         $products = $this->createProductQueryBuilder($channel, $locale)->execute();
 
-        $this->bulkRemoveCompletenessesAndIndexProducts($products);
+        $this->bulkRemoveCompletenesses($products);
     }
 
     /**
@@ -195,7 +195,7 @@ class CompletenessGenerator implements CompletenessGeneratorInterface
     /**
      * @param CursorInterface $products
      */
-    protected function bulkRemoveCompletenessesAndIndexProducts(CursorInterface $products)
+    protected function bulkRemoveCompletenesses(CursorInterface $products)
     {
         $bulkedCompletenesses = [];
         $bulkedProducts = [];
