@@ -60,17 +60,17 @@ class CheckHeadersRequestSubscriber implements EventSubscriberInterface
         }
 
         try {
-            $best = $this->formatNegotiator->getBest($request->headers->get('accept'));
-
-            if (null === $best) {
-                return;
-            }
-
             if ('GET' === $request->getMethod()) {
+                $acceptHeader = $this->formatNegotiator->getBest($request->headers->get('accept'));
+
+                if (null === $acceptHeader) {
+                    return;
+                }
+
                 $accept = $request->headers->get('accept', null);
-                if (null !== $accept && $accept !== $best->getValue() && !preg_match('|\*\/\*|', $accept)) {
+                if (null !== $accept && $accept !== $acceptHeader->getValue() && !preg_match('|\*\/\*|', $accept)) {
                     throw new NotAcceptableHttpException(
-                        sprintf('"%s" in "Accept" header is not valid. Only "%s" is allowed.', $accept, $best->getValue())
+                        sprintf('"%s" in "Accept" header is not valid. Only "%s" is allowed.', $accept, $acceptHeader->getValue())
                     );
                 }
 
@@ -78,22 +78,28 @@ class CheckHeadersRequestSubscriber implements EventSubscriberInterface
             }
 
             if (in_array($request->getMethod(), ['PUT', 'PATCH', 'POST'])) {
+                $acceptHeader = $this->formatNegotiator->getBest('*/*');
+
+                if (null === $acceptHeader) {
+                    return;
+                }
+
                 $contentType = $request->headers->get('content-type');
                 if (null === $contentType) {
                     throw new UnsupportedMediaTypeHttpException(
                         sprintf(
                             'The "Content-Type" header is missing. "%s" has to be specified as value.',
-                            $best->getValue()
+                            $acceptHeader->getValue()
                         )
                     );
                 }
 
-                if (false === strpos($contentType, $best->getValue())) {
+                if (false === strpos($contentType, $acceptHeader->getValue())) {
                     throw new UnsupportedMediaTypeHttpException(
                         sprintf(
                             '"%s" in "Content-Type" header is not valid. Only "%s" is allowed.',
                             $contentType,
-                            $best->getValue()
+                            $acceptHeader->getValue()
                         )
                     );
                 }
