@@ -10,6 +10,7 @@ use Akeneo\Component\StorageUtils\Saver\SaverInterface;
 use Akeneo\Component\StorageUtils\Updater\ObjectUpdaterInterface;
 use Pim\Bundle\ApiBundle\Documentation;
 use Pim\Bundle\ApiBundle\Stream\StreamResourceResponse;
+use Pim\Bundle\CatalogBundle\Filter\CollectionFilterInterface;
 use Pim\Bundle\CatalogBundle\Filter\ObjectFilterInterface;
 use Pim\Component\Api\Exception\DocumentedHttpException;
 use Pim\Component\Api\Exception\PaginationParametersException;
@@ -33,6 +34,7 @@ use Pim\Component\Catalog\Query\ProductQueryBuilderInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -41,12 +43,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/**
- * @author    Marie Bochu <marie.bochu@akeneo.com>
- * @copyright 2017 Akeneo SAS (http://www.akeneo.com)
- * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-class ProductController
+class ProposalController
 {
     /** @var ProductQueryBuilderFactoryInterface */
     protected $pqbFactory;
@@ -108,6 +105,13 @@ class ProductController
     /** @var ObjectFilterInterface */
     protected $objectFilter;
 
+    /** @var CollectionFilterInterface */
+    protected $productEditDataFilter;
+    /**
+     * @var SaverInterface
+     */
+    private $productSaver;
+
     /**
      * @param ProductQueryBuilderFactoryInterface   $pqbFactory
      * @param NormalizerInterface                   $normalizer
@@ -149,7 +153,9 @@ class ProductController
         StreamResourceResponse $partialUpdateStreamResource,
         PrimaryKeyEncrypter $primaryKeyEncrypter,
         array $apiConfiguration,
-        ObjectFilterInterface $objectFilter
+        ObjectFilterInterface $objectFilter,
+        CollectionFilterInterface $productEditDataFilter,
+        SaverInterface $productSaver
     ) {
         $this->pqbFactory = $pqbFactory;
         $this->normalizer = $normalizer;
@@ -171,6 +177,8 @@ class ProductController
         $this->primaryKeyEncrypter = $primaryKeyEncrypter;
         $this->apiConfiguration = $apiConfiguration;
         $this->objectFilter = $objectFilter;
+        $this->productEditDataFilter = $productEditDataFilter;
+        $this->productSaver = $productSaver;
     }
 
     /**
@@ -311,16 +319,31 @@ class ProductController
             $product = $this->productBuilder->createProduct();
         }
 
+        if ($this->objectFilter->filterObject($product, 'pim.internal_api.product.edit')) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $data = json_decode($request->getContent(), true);
+        try {
+            $data = $this->productEditDataFilter->filterCollection($data, null, ['product' => $product]);
+        } catch (ObjectNotFoundException $e) {
+            throw new BadRequestHttpException();
+        }
+
         $data['identifier'] = array_key_exists('identifier', $data) ? $data['identifier'] : $code;
         $data = $this->populateIdentifierProductValue($data);
 
         if (!$isCreation) {
             $data = $this->filterEmptyValues($product, $data);
-        }
 
-        $this->updateProduct($product, $data, 'patch_products__code_');
-        $this->validateProduct($product);
-        $this->saver->save($product);
+            $this->updateProduct($product, $data, 'patch_products__code_');
+            $this->validateProduct($product);
+            $this->saver->save($product);
+        } else {
+            $this->updateProduct($product, $data, 'patch_products__code_');
+            $this->validateProduct($product);
+            $this->productSaver->save($product);
+        }
 
         $status = $isCreation ? Response::HTTP_CREATED : Response::HTTP_NO_CONTENT;
         $response = $this->getResponse($product, $status);
@@ -692,15 +715,6 @@ class ProductController
         $offset = ($queryParameters['page'] - 1) * $queryParameters['limit'];
         $products = $this->productRepository->searchAfterOffset($pqb, $queryParameters['limit'], $offset);
 
-        $prod = [];
-        foreach ($products as $product) {
-            if ($this->objectFilter->filterObject($product, 'pim.internal_api.product.edit')) {
-                continue;
-            }
-
-            $prod[] = $product;
-        }
-
         $count = 'true' === $queryParameters['with_count'] ? $this->productRepository->count($pqb) : null;
 
         $parameters = [
@@ -711,7 +725,7 @@ class ProductController
         ];
 
         $paginatedProducts = $this->offsetPaginator->paginate(
-            $this->normalizer->normalize($prod, 'external_api', $normalizerOptions),
+            $this->normalizer->normalize($products, 'external_api', $normalizerOptions),
             $parameters,
             $count
         );
@@ -742,9 +756,6 @@ class ProductController
         $products = [];
         foreach ($productCursor as $product) {
             if (false !== $product) {
-                if ($this->objectFilter->filterObject($product, 'pim.internal_api.product.edit')) {
-                    continue;
-                }
                 $products[] = $product;
             }
         }

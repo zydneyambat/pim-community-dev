@@ -22,6 +22,14 @@ product:
     resource: '@PimApiBundle/Resources/config/routing/product.yml'
     prefix: /rest/v1
 
+proposal:
+    resource: '@PimApiBundle/Resources/config/routing/proposal.yml'
+    prefix: /rest/v1
+
+notification:
+    resource: '@PimApiBundle/Resources/config/routing/notification.yml'
+    prefix: /rest/v1
+
 media:
     resource: '@PimApiBundle/Resources/config/routing/media.yml'
     prefix: /rest/v1
