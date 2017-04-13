@@ -57,7 +57,7 @@ define(
                         ['insert', ['link']],
                         ['view', ['codeview']]
                     ]
-                }).on('summernote.blur', this.updateModel.bind(this))
+                }).on('summernote.blur', this.updateModel.bind(this));
             },
 
             /**
