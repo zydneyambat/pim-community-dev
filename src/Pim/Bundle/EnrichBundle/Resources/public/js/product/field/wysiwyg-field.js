@@ -36,6 +36,17 @@ define(
              * @inheritDoc
              */
             postRender: function () {
+                $.summernote.addPlugin({
+                    name : 'changeLine',
+                    events : {
+                        insertParagraph: function (event, editor, layout) {
+                            var editable = layout.editable();
+                            editor.pasteHTML(editable, '<br><br>');
+                            event.preventDefault();
+                        }.bind(this)
+                    }
+                });
+
                 this.$('textarea').summernote({
                     disableResizeEditor: true,
                     height: 200,
@@ -46,7 +57,8 @@ define(
                         ['insert', ['link']],
                         ['view', ['codeview']]
                     ]
-                }).on('summernote.blur', this.updateModel.bind(this));
+                })
+                .on('summernote.blur', this.updateModel.bind(this))
             },
 
             /**
