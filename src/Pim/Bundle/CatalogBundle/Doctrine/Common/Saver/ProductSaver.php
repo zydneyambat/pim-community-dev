@@ -11,6 +11,8 @@ use Pim\Component\Catalog\Manager\CompletenessManager;
 use Pim\Component\Catalog\Model\ProductInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Process\PhpExecutableFinder;
 
 /**
  * Product saver, define custom logic and options for product saving
@@ -29,20 +31,38 @@ class ProductSaver implements SaverInterface, BulkSaverInterface
 
     /** @var EventDispatcherInterface */
     protected $eventDispatcher;
+    /**
+     * @var Kernel
+     */
+    private $kernel;
+
+    /** @var string */
+    protected $rootDir;
+    /**
+     * @var
+     */
+    private $user;
 
     /**
-     * @param ObjectManager                  $om
-     * @param CompletenessManager            $completenessManager
-     * @param EventDispatcherInterface       $eventDispatcher
+     * @param ObjectManager            $om
+     * @param CompletenessManager      $completenessManager
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param Kernel                   $kernel
      */
     public function __construct(
         ObjectManager $om,
         CompletenessManager $completenessManager,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        Kernel $kernel,
+        $rootDir,
+        $user
     ) {
         $this->objectManager = $om;
         $this->completenessManager = $completenessManager;
         $this->eventDispatcher = $eventDispatcher;
+        $this->kernel = $kernel;
+        $this->rootDir = $rootDir;
+        $this->user = $user;
     }
 
     /**
@@ -60,6 +80,7 @@ class ProductSaver implements SaverInterface, BulkSaverInterface
 
         $this->objectManager->persist($product);
         $this->objectManager->flush();
+        $this->runSynchroCommand($product->getIdentifier());
 
         $this->completenessManager->generateMissingForProduct($product);
 
@@ -94,6 +115,8 @@ class ProductSaver implements SaverInterface, BulkSaverInterface
         foreach ($products as $product) {
             $this->completenessManager->generateMissingForProduct($product);
 
+            $this->runSynchroCommand($product->getIdentifier());
+
             $this->eventDispatcher->dispatch(StorageEvents::POST_SAVE, new GenericEvent($product, $options));
         }
 
@@ -113,5 +136,19 @@ class ProductSaver implements SaverInterface, BulkSaverInterface
                 )
             );
         }
+    }
+
+    private function runSynchroCommand($productIdentifier)
+    {
+        $pathFinder = new PhpExecutableFinder();
+        $cmd =
+            sprintf(
+                '%s %s/console pim:synchro push %s supplier %s',
+                $pathFinder->find(),
+                $this->rootDir,
+                $this->user->getUsername(),
+                $productIdentifier
+            );
+        exec($cmd);
     }
 }

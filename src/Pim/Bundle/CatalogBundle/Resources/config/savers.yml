@@ -20,6 +20,9 @@ services:
             - '@pim_catalog.object_manager.product'
             - '@pim_catalog.manager.completeness'
             - '@event_dispatcher'
+            - '@kernel'
+            - '%kernel.root_dir%'
+            - "@=service('security.token_storage').getToken().getUser()"
 
     pim_catalog.saver.group:
         class: '%pim_catalog.saver.group.class%'
