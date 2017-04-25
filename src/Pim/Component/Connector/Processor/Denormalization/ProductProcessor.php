@@ -81,13 +81,17 @@ class ProductProcessor extends AbstractProcessor implements ItemProcessorInterfa
         $identifier = $this->getIdentifier($item);
 
         if (null === $identifier) {
-            $this->skipItemWithMessage($item, 'The identifier must be filled');
+            $this->skipItemWithMessage($item, 'The identifier must be filled'); 
         }
 
         $familyCode = $this->getFamilyCode($item);
         $filteredItem = $this->filterItemData($item);
 
         $product = $this->findOrCreateProduct($identifier, $familyCode);
+
+        if (null === $product) {
+            return null;
+        }
 
         if (false === $itemHasStatus && null !== $product->getId()) {
             unset($filteredItem['enabled']);
@@ -182,9 +186,9 @@ class ProductProcessor extends AbstractProcessor implements ItemProcessorInterfa
     protected function findOrCreateProduct($identifier, $familyCode)
     {
         $product = $this->repository->findOneByIdentifier($identifier);
-        if (!$product) {
-            $product = $this->builder->createProduct($identifier, $familyCode);
-        }
+//        if (!$product) {
+//            $product = $this->builder->createProduct($identifier, $familyCode);
+//        }
 
         return $product;
     }

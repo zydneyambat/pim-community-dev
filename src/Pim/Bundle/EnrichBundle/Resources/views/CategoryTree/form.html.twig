@@ -28,20 +28,20 @@
     {% set buttons %}
         {% if form.vars.value.id %}
             {% if exceeds_products_limit_for_removal(form.vars.value, true, related_entity) %}
-                {#{{ elements.link(#}
-                    {#'btn.delete',#}
-                    {#null,#}
-                    {#{#}
-                        {#'icon':  'trash',#}
-                        {#'title': 'btn.delete',#}
-                        {#'class': 'AknButton--important AknButtonList-item',#}
-                        {#'attr': {#}
-                            {#'data-title':   'confirmation.delete'|trans,#}
-                            {#'data-dialog':  'alert',#}
-                            {#'data-message': 'info.category.products limit exceeded'|trans({ '%limit%': get_products_limit_for_removal()|default('0') })#}
-                        {#}#}
-                    {#}#}
-                {#) }}#}
+                {{ elements.link(
+                    'btn.delete',
+                    null,
+                    {
+                        'icon':  'trash',
+                        'title': 'btn.delete',
+                        'class': 'AknButton--important AknButtonList-item',
+                        'attr': {
+                            'data-title':   'confirmation.delete'|trans,
+                            'data-dialog':  'alert',
+                            'data-message': 'info.category.products limit exceeded'|trans({ '%limit%': get_products_limit_for_removal()|default('0') })
+                        }
+                    }
+                ) }}
             {% else %}
                 {{ elements.deleteLink(
                     path(route ~ '_categorytree_remove', { id: form.vars.value.id }),

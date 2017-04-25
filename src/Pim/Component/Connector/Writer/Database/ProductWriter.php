@@ -60,7 +60,9 @@ class ProductWriter implements ItemWriterInterface, StepExecutionAwareInterface
             $this->incrementCount($item);
         }
 
-        $this->productSaver->saveAll($items);
+        $username = $this->stepExecution->getJobExecution()->getUser();
+
+        $this->productSaver->saveAll($items, ['username' => $username]);
         $this->detacher->detachAll($items);
     }
 

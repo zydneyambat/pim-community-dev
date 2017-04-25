@@ -22,7 +22,7 @@ services:
             - '@event_dispatcher'
             - '@kernel'
             - '%kernel.root_dir%'
-            - "@=service('security.token_storage').getToken().getUser()"
+            - "@security.token_storage"
 
     pim_catalog.saver.group:
         class: '%pim_catalog.saver.group.class%'

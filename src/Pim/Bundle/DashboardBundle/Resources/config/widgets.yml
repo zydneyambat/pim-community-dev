@@ -31,11 +31,11 @@ services:
 #                    route: pim_enrich_attribute_index
 #                    label: pim_dashboard.link.label.attribute
 #                    image: widget_links_attributes.png
-                -
-                    acl: pim_enrich_product_category_list
-                    route: pim_enrich_categorytree_index
-                    label: pim_dashboard.link.label.category
-                    image: widget_links_categories.png
+#                -
+#                    acl: pim_enrich_product_category_list
+#                    route: pim_enrich_categorytree_index
+#                    label: pim_dashboard.link.label.category
+#                    image: widget_links_categories.png
         tags:
             - { name: pim_dashboard.widget, position: 10 }
 

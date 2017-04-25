@@ -115,7 +115,7 @@ class ProductSaver implements SaverInterface, BulkSaverInterface
         foreach ($products as $product) {
             $this->completenessManager->generateMissingForProduct($product);
 
-            $this->runSynchroCommand($product->getIdentifier());
+            $this->runSynchroCommand($product->getIdentifier(), $options);
 
             $this->eventDispatcher->dispatch(StorageEvents::POST_SAVE, new GenericEvent($product, $options));
         }
@@ -138,17 +138,34 @@ class ProductSaver implements SaverInterface, BulkSaverInterface
         }
     }
 
-    private function runSynchroCommand($productIdentifier)
+    private function runSynchroCommand($productIdentifier, array $option = [])
     {
         $pathFinder = new PhpExecutableFinder();
-        $cmd =
-            sprintf(
-                '%s %s/console pim:synchro push %s supplier %s',
-                $pathFinder->find(),
-                $this->rootDir,
-                $this->user->getUsername(),
-                $productIdentifier
-            );
-        exec($cmd);
+        if(null !== $this->user->getToken()) {
+            $username = $this->user->getToken()->getUser()->getUsername();
+            $cmd =
+                sprintf(
+                    '%s %s/console pim:synchro push %s supplier %s',
+                    $pathFinder->find(),
+                    $this->rootDir,
+                    $username,
+                    $productIdentifier
+                );
+            exec($cmd);
+        }
+
+        if(!empty($option)) {
+            $username = $option['username'];
+            $cmd =
+                sprintf(
+                    '%s %s/console pim:synchro push %s supplier %s',
+                    $pathFinder->find(),
+                    $this->rootDir,
+                    $username,
+                    $productIdentifier
+                );
+
+            exec($cmd);
+        }
     }
 }

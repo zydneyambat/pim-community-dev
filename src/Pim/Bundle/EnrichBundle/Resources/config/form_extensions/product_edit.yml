@@ -35,12 +35,12 @@ extensions:
         config:
             backUrl: pim_enrich_product_index
 
-    pim-product-edit-form-download-pdf:
-        module: pim/product-edit-form/download-pdf
-        parent: pim-product-edit-form
-        targetZone: buttons
-        aclResourceId: pim_pdf_generator_product_download
-        position: 90
+#    pim-product-edit-form-download-pdf:
+#        module: pim/product-edit-form/download-pdf
+#        parent: pim-product-edit-form
+#        targetZone: buttons
+#        aclResourceId: pim_pdf_generator_product_download
+#        position: 90
 
     pim-product-edit-form-delete:
         module: pim/product-edit-form/delete
@@ -56,12 +56,12 @@ extensions:
                 fail: pim_enrich.entity.product.info.deletion_failed
             redirect: pim_enrich_product_index
 
-    pim-product-edit-form-status-switcher:
-        module: pim/product-edit-form/status-switcher
-        parent: pim-product-edit-form
-        targetZone: title-buttons
-        aclResourceId: pim_enrich_product_change_state
-        position: 110
+#    pim-product-edit-form-status-switcher:
+#        module: pim/product-edit-form/status-switcher
+#        parent: pim-product-edit-form
+#        targetZone: title-buttons
+#        aclResourceId: pim_enrich_product_change_state
+#        position: 110
 
     pim-product-edit-form-save-buttons:
         module: pim/form/common/save-buttons
@@ -138,12 +138,12 @@ extensions:
             tabTitle: pim_enrich.form.product.tab.attributes.title
             deletionFailed: pim_enrich.form.product.flash.attribute_deletion_error
 
-    pim-product-edit-form-categories:
-        module: pim/product-edit-form/categories
-        parent: pim-product-edit-form-form-tabs
-        targetZone: container
-        aclResourceId: pim_enrich_product_categories_view
-        position: 100
+#    pim-product-edit-form-categories:
+#        module: pim/product-edit-form/categories
+#        parent: pim-product-edit-form-form-tabs
+#        targetZone: container
+#        aclResourceId: pim_enrich_product_categories_view
+#        position: 100
 
 #    pim-product-edit-form-associations:
 #        module: pim/product-edit-form/associations
