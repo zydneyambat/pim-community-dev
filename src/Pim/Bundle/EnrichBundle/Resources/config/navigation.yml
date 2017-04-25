@@ -38,13 +38,13 @@ oro_menu_config:
             aclResourceId: pim_enrich_attributegroup_index
             extras:
                 routes: ['/^pim_enrich_attributegroup_\w+$/']
-        pim_enrich_categorytree:
-            label: pim_menu.item.category
-            route: pim_enrich_categorytree_index
-            aclResourceId: pim_enrich_product_category_list
-            extras:
-                routes: ['/^pim_enrich_categorytree_\w+$/']
-                position: 20
+#        pim_enrich_categorytree:
+#            label: pim_menu.item.category
+#            route: pim_enrich_categorytree_index
+#            aclResourceId: pim_enrich_product_category_list
+#            extras:
+#                routes: ['/^pim_enrich_categorytree_\w+$/']
+#                position: 20
         pim_configuration_tab:
             label: pim_menu.tab.settings
             uri: '#'
@@ -109,7 +109,7 @@ oro_menu_config:
                 pim_enrich_tab:
                     children:
                         pim_enrich_product: ~
-                        pim_enrich_categorytree: ~
+#                        pim_enrich_categorytree: ~
                         pim_enrich_variant_group: ~
                         pim_enrich_group: ~
                 pim_configuration_tab:
