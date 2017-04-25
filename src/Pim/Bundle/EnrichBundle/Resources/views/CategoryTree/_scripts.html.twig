@@ -12,7 +12,7 @@
                         'data-placement': 'right',
                         'data-original-title': '{{ "btn.create.tree"|trans|capitalize }}'
                     }).html(
-                        $('<i>')
+                        $('<i>', { 'class': 'icon-plus-sign' })
                     ).on('click', function () {
                         Backbone.history.navigate('url={{ path(route ~ '_categorytree_create') }}', { trigger: true });
                     }).tooltip());

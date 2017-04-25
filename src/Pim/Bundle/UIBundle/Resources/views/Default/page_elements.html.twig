@@ -78,10 +78,10 @@
 {% macro deleteLink(url, acl, redirectUrl, message, successMessage, title, class = '') %}{% spaceless %}
     {% if acl is null or resource_granted(acl) %}
         {% import _self as elements %}
-        {#<a class="AknButton AknButton--withIcon AknButton--important {{ class }}" title="{{ 'btn.delete'|trans|capitalize }}" {{elements.deleteLinkAttributes(url, redirectUrl, message, successMessage, title)}} >#}
-            {#<i class="AknButton-icon icon-trash"></i>#}
-            {#{{ 'btn.delete'|trans|capitalize }}#}
-        {#</a>#}
+        <a class="AknButton AknButton--withIcon AknButton--important {{ class }}" title="{{ 'btn.delete'|trans|capitalize }}" {{elements.deleteLinkAttributes(url, redirectUrl, message, successMessage, title)}} >
+            <i class="AknButton-icon icon-trash"></i>
+            {{ 'btn.delete'|trans|capitalize }}
+        </a>
     {% endif %}
 {% endspaceless %}{% endmacro %}
 

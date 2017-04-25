@@ -39,7 +39,7 @@ require(
                     'data-placement': 'right',
                     'data-original-title': '{{ "btn.create.attribute group"|trans|capitalize }}'
                 }).html(
-                    $('<i>')
+                    $('<i>', { 'class': 'icon-plus-sign' })
                 ).on('click', function() {
                     Backbone.history.navigate('url={{ path("pim_enrich_attributegroup_create") }}', { trigger: true });
                 }).tooltip());
