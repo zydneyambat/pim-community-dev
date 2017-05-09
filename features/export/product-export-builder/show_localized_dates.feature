@@ -33,6 +33,7 @@ Feature: Show localized date in export builder
     When I am on the "csv_footwear_product_export" export job edit page
     And I visit the "Content" tab
     And I filter by "updated" with operator "Updated products since this date" and value "08/13/2016"
+    Then I should see the text "There are unsaved changes"
     And I press the "Save" button
     Then I should not see the text "There are unsaved changes"
     When I visit the "Content" tab
